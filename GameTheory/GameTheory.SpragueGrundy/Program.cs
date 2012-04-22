@@ -30,10 +30,11 @@ namespace GameTheory.SpragueGrundy
             //    Console.WriteLine("n: {0}; \tlasker: {1}; \tkayles: {2}; \tsticks(2,3,4): {3},{4},{5}", i, l, k, s2, s3, s4);
             //}
 
-            for (uint i = 0; i < 100; i++)
-            {
-                Console.WriteLine(ResultPredictor.GetShortPredictionResult(kayles,i,Player.First));
-            }
+            Console.WriteLine(ResultPredictor.FindPNPositions(sticks2, 40).BinaryView);
+            Console.WriteLine(ResultPredictor.FindPNPositions(sticks3, 40).BinaryView);
+            Console.WriteLine(ResultPredictor.FindPNPositions(sticks4, 40).BinaryView);
+            Console.WriteLine(ResultPredictor.FindPNPositions(lasker, 40).BinaryView);
+
 
 
         }

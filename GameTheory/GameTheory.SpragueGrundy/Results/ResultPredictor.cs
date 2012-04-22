@@ -8,18 +8,28 @@ namespace GameTheory.SpragueGrundy.Results
 {
     public static class ResultPredictor
     {
-        public static PredictionResult Predict<T>(T game, uint n, Player currentPlayer) where T : GrundyGameBase
+        public static Player PredictWinner(GrundyGameBase game, uint n, Player currentPlayer)
         {
             var grundyValue = game.Grundy(n);
             Player winner = grundyValue == 0
                           ? currentPlayer.Other
                           : currentPlayer;
-            return new PredictionResult(winner);
+            return winner;
         }
 
-        public static PredictionResult Predict<T>(T game, uint n) where T : GrundyGameBase
+        public static Player PredictWinner<T>(T game, uint n) where T : GrundyGameBase
         {
-            return Predict(game, n, Player.First);
+            return PredictWinner(game, n, Player.First);
+        }
+
+        public static PredictionResult FindPNPositions(GrundyGameBase game, uint upTo)
+        {
+            var sb = new StringBuilder();
+
+            for (uint i = 0; i < upTo; i++)
+                sb.Append(game.Grundy(i) == 0 ? 'P' : 'N');
+
+            return new PredictionResult(sb.ToString());
         }
 
         public static string GetFullPredictionResult<T>(T game, uint n, Player currentPlayer) where T : GrundyGameBase
@@ -37,11 +47,11 @@ namespace GameTheory.SpragueGrundy.Results
 
         private static string PredictionResultTemplate<T>(string message, T game, uint state, Player currentPlayer, bool playerShorName = true) where T : GrundyGameBase
         {
-            var result = Predict(game, state, currentPlayer);
-            return string.Format(message, 
-                GetPlayerName(currentPlayer, playerShorName), 
-                state, 
-                GetPlayerName(result.Winner,playerShorName), 
+            var winner = PredictWinner(game, state, currentPlayer);
+            return string.Format(message,
+                GetPlayerName(currentPlayer, playerShorName),
+                state,
+                GetPlayerName(winner, playerShorName),
                 GetGameName(game));
         }
 
@@ -51,7 +61,7 @@ namespace GameTheory.SpragueGrundy.Results
                 return player.Number.ToString();
             else
                 return player.ToString();
-                
+
         }
 
         private static string GetGameName<T>(T game)
@@ -65,11 +75,18 @@ namespace GameTheory.SpragueGrundy.Results
 
         public class PredictionResult
         {
-            public PredictionResult(Player winner)
+            // first parameter is just an indexer
+            public List<uint> PPositions { get; private set; }
+            public List<uint> NPositions { get; private set; }
+            public string BinaryView { get; private set; }
+
+            public PredictionResult(string binaryView)
             {
-                Winner = winner;
+                BinaryView = binaryView;
+
+                PPositions = binaryView.Select((char c, int i) => c == 'P' ? i : -1).Where((int i) => i >= 0).Select((int i) => (uint)i).ToList();
+                NPositions = binaryView.Select((char c, int i) => c == 'N' ? i : -1).Where((int i) => i >= 0).Select((int i) => (uint)i).ToList();
             }
-            public Player Winner { get; private set; }
         }
     }
 }

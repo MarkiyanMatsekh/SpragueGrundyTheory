@@ -14,9 +14,9 @@ namespace GameTheory.SpragueGrundy
             var lasker = new LaskersNimGame();
             var kayles = new KaylesGame();
 
-            var sticks2 = new SticksGame(2);
-            var sticks3 = new SticksGame(3);
-            var sticks4 = new SticksGame(4);
+            var sticks2 = new SubstractionGame(2);
+            var sticks3 = new SubstractionGame(3);
+            var sticks4 = new SubstractionGame(4);
 
             //for (uint i = 0; i < 20; i++)
             //{

@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Games\GameBase.cs" />
+    <Compile Include="Games\GrundyGameBase.cs" />
+    <Compile Include="Games\KaylesGame.cs" />
+    <Compile Include="Games\LaskersNim.cs" />
     <Compile Include="Games\SticksGame.cs" />
+    <Compile Include="Maths\Algorythm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

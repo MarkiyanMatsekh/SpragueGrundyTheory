@@ -11,10 +11,13 @@ namespace GameTheory.SpragueGrundy
         static void Main(string[] args)
         {
             var lasker = new LaskersNim();
+            var kayles = new KaylesGame();
             for (uint i = 0; i < 100; i++)
             {
-                var a = lasker.Grundy(i);
-                Console.WriteLine("{0} - {1}",i, a);
+                var l = lasker.Grundy(i);
+                var k = kayles.Grundy(i);
+
+                Console.WriteLine("n: {0}; \tlasker: {1}; \tkayles: {2}", i, l, k);
             }
 
         }

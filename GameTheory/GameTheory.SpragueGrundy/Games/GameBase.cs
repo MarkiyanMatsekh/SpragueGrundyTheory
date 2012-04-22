@@ -7,7 +7,7 @@ namespace GameTheory.SpragueGrundy.Games
 {
     public class LaskersNim : GrundyGameBase
     {
-        protected override bool StopCriteria(uint n, out uint stop)
+        protected override bool TryStop(uint n, out uint stop)
         {
             stop = 0;
             if (n ==0)
@@ -39,6 +39,8 @@ namespace GameTheory.SpragueGrundy.Games
 
     public abstract class GrundyGameBase
     {
+        private readonly Dictionary<uint, uint> _cache = new Dictionary<uint, uint>(); 
+
         protected uint Mex(HashSet<uint> set  )
         {
             //creepy implementation
@@ -53,14 +55,31 @@ namespace GameTheory.SpragueGrundy.Games
 
         public uint Grundy(uint n)
         {
-            uint stop;
-            if (StopCriteria(n, out stop))
-                return stop;
+            uint grundyValue;
+            if (TryStop(n, out grundyValue))
+                return grundyValue;
 
-            return Mex(GetGameTransitions(n));
+            if (TryGetCachedValue(n, out grundyValue))
+                return grundyValue;
+
+            grundyValue = Mex(GetGameTransitions(n));
+
+            CacheValue(n, grundyValue);
+
+            return grundyValue;
         }
 
-        protected abstract bool StopCriteria(uint n,out uint stop);
+        private void CacheValue(uint u, uint grundyValue)
+        {
+            _cache[u] = grundyValue;
+        }
+
+        private bool TryGetCachedValue(uint n, out uint value)
+        {
+            return _cache.TryGetValue(n, out value);
+        }
+
+        protected abstract bool TryStop(uint n,out uint value);
 
         protected abstract HashSet<uint> GetGameTransitions(uint n);
 

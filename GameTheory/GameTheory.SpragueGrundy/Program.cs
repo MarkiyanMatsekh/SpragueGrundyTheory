@@ -11,7 +11,7 @@ namespace GameTheory.SpragueGrundy
         static void Main(string[] args)
         {
             var lasker = new LaskersNim();
-            for (uint i = 0; i < 20; i++)
+            for (uint i = 0; i < 100; i++)
             {
                 var a = lasker.Grundy(i);
                 Console.WriteLine("{0} - {1}",i, a);

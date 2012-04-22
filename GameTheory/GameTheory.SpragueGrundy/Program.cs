@@ -14,28 +14,17 @@ namespace GameTheory.SpragueGrundy
             var lasker = new LaskersNimGame();
             var kayles = new KaylesGame();
 
-            var sticks2 = new SubstractionGame(2);
-            var sticks3 = new SubstractionGame(3);
-            var sticks4 = new SubstractionGame(4);
+            var sub2 = new SubstractionGame(new HashSet<uint> { 1, 2 });
+            var sub3 = new SubstractionGame(new HashSet<uint> { 1, 2, 3 });
+            var sub2N = new SubstractionGame(new HashSet<uint> { 1, 2, 4, 8, 16 });
 
-            //for (uint i = 0; i < 20; i++)
-            //{
-            //    var l = lasker.Grundy(i);
-            //    var k = kayles.Grundy(i);
-
-            //    var s2 = sticks2.Grundy(i);
-            //    var s3 = sticks3.Grundy(i);
-            //    var s4 = sticks4.Grundy(i);
-
-            //    Console.WriteLine("n: {0}; \tlasker: {1}; \tkayles: {2}; \tsticks(2,3,4): {3},{4},{5}", i, l, k, s2, s3, s4);
-            //}
-
-            Console.WriteLine(ResultPredictor.FindPNPositions(sticks2, 40).BinaryView);
-            Console.WriteLine(ResultPredictor.FindPNPositions(sticks3, 40).BinaryView);
-            Console.WriteLine(ResultPredictor.FindPNPositions(sticks4, 40).BinaryView);
+            
+            Console.WriteLine(ResultPredictor.FindPNPositions(sub2, 40).BinaryView);
+            Console.WriteLine(ResultPredictor.FindPNPositions(sub3, 40).BinaryView);
+            Console.WriteLine(ResultPredictor.FindPNPositions(sub2N, 40).BinaryView);
             Console.WriteLine(ResultPredictor.FindPNPositions(lasker, 40).BinaryView);
 
-
+            Console.WriteLine(ResultPredictor.PredictWinner(sub2N,100));
 
         }
     }

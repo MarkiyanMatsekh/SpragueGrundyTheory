@@ -7,20 +7,20 @@ namespace GameTheory.SpragueGrundy.Games
 {
     public class SubstractionGame : GrundyGameBase
     {
-        private readonly uint _maxSticksToTake;
+        private readonly HashSet<uint> _substractionSet;
 
-        public SubstractionGame(uint maxSticksToTake)
+        public SubstractionGame(HashSet<uint> substractionSet)
         {
-            if (maxSticksToTake < 1)
-                throw new ArgumentException("Max number of sticks to take at time must be positive");
-            _maxSticksToTake = maxSticksToTake;
+            if (!substractionSet.Any())
+                throw new ArgumentException("substraction set cannot be empty");
+            _substractionSet = substractionSet;
         }
 
         protected override bool TryStopRecursion(uint n, out uint value)
         {
-            if (n <= _maxSticksToTake)
+            if (n  == 0)
             {
-                value = n; // or just 1 - doesn't really metter, but > 0
+                value = 0;
                 return true;
             }
 
@@ -32,11 +32,14 @@ namespace GameTheory.SpragueGrundy.Games
         {
             var set = new HashSet<uint>();
 
-            for (uint sticks = 1; sticks <= _maxSticksToTake; sticks++)
-                set.Add(Grundy(n - sticks));
+            foreach (var substraction in _substractionSet)
+            {
+                if (n < substraction)
+                    continue;
+                set.Add(Grundy(n - substraction));
+            }
 
             return set;
-
         }
     }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public class KaylesGame : GrundyGameBase
+    public class KaylesGame : GrundyGameBase<uint>
     {
         protected override bool TryStopRecursion(uint n, out uint value)
         {
@@ -24,15 +24,15 @@ namespace GameTheory.SpragueGrundy.Games
             return false;
         }
 
-        protected override HashSet<uint> GetStateTransitions(uint n)
+        protected override HashSet<uint> GetStateTransitions(uint key)
         {
             var set = new HashSet<uint>();
 
-            for (uint i = 0; i <= n - 1; i++)
-                set.Add(Grundy(i) ^ Grundy(n - 1 - i));
+            for (uint i = 0; i <= key - 1; i++)
+                set.Add(SGValue(i) ^ SGValue(key - 1 - i));
 
-            for (uint i = 0; i <= n - 2; i++)
-                set.Add(Grundy(i) ^ Grundy(n - 2 - i));
+            for (uint i = 0; i <= key - 2; i++)
+                set.Add(SGValue(i) ^ SGValue(key - 2 - i));
 
             return set;
         }

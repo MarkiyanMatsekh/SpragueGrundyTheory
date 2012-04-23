@@ -8,44 +8,46 @@ namespace GameTheory.SpragueGrundy.Results
 {
     public static class ResultPredictor
     {
-        public static Player PredictWinner(GrundyGameBase game, uint n, Player currentPlayer)
+        public static Player PredictWinner<TKey>(GrundyGameBase<TKey> game, TKey key, Player currentPlayer)
         {
-            var grundyValue = game.Grundy(n);
+            var grundyValue = game.SGValue(key);
             Player winner = grundyValue == 0
                           ? currentPlayer.Other
                           : currentPlayer;
             return winner;
         }
 
-        public static Player PredictWinner<T>(T game, uint n) where T : GrundyGameBase
+        public static Player PredictWinner<TGame,TKey>(TGame game, TKey key) where TGame : GrundyGameBase<TKey>
         {
-            return PredictWinner(game, n, Player.First);
+            return PredictWinner(game, key, Player.First);
         }
 
-        public static PredictionResult FindPNPositions(GrundyGameBase game, uint upTo)
+        public static PredictionResult FindPNPositions(GrundyGameBase<uint> game, uint upTo)
         {
             var sb = new StringBuilder();
 
             for (uint i = 0; i < upTo; i++)
-                sb.Append(game.Grundy(i) == 0 ? 'P' : 'N');
+                sb.Append(game.SGValue(i) == 0 ? 'P' : 'N');
 
             return new PredictionResult(sb.ToString());
         }
 
-        public static string GetFullPredictionResult<T>(T game, uint n, Player currentPlayer) where T : GrundyGameBase
+        public static string GetFullPredictionResult<T>(T game, uint n, Player currentPlayer) where T : GrundyGameBase<uint>
         {
             return PredictionResultTemplate(
                 "If {0} should make a move, given state {1}, following optimal strategy, {2} wins the {3} game",
                 game, n, currentPlayer);
         }
 
-        public static string GetShortPredictionResult<T>(T game, uint n, Player currentPlayer) where T : GrundyGameBase
+        public static string GetShortPredictionResult<TGame,TKey>(TGame game, TKey key, Player currentPlayer) 
+            where TGame : GrundyGameBase<TKey>
         {
             return PredictionResultTemplate("player:{0},n:{1},winner:{2},game:{3}",
-                game, n, currentPlayer);
+                game, key, currentPlayer);
         }
 
-        private static string PredictionResultTemplate<T>(string message, T game, uint state, Player currentPlayer, bool playerShorName = true) where T : GrundyGameBase
+        private static string PredictionResultTemplate<TGame,TKey>(string message, TGame game, TKey state, Player currentPlayer, bool playerShorName = true) 
+            where TGame : GrundyGameBase<TKey>
         {
             var winner = PredictWinner(game, state, currentPlayer);
             return string.Format(message,

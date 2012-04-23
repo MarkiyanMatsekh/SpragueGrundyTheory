@@ -46,7 +46,9 @@
     <Compile Include="Games\GrundyGameBase.cs" />
     <Compile Include="Games\KaylesGame.cs" />
     <Compile Include="Games\LaskersNimGame.cs" />
+    <Compile Include="Games\QueenGame.cs" />
     <Compile Include="Games\SubstractionGame.cs" />
+    <Compile Include="Games\WhiteKnightGame.cs" />
     <Compile Include="Maths\Algorythm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

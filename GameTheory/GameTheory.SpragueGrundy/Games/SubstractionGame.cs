@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public class SubstractionGame : GrundyGameBase
+    public class SubstractionGame : GrundyGameBase<uint>
     {
         private readonly HashSet<uint> _substractionSet;
 
@@ -36,7 +36,7 @@ namespace GameTheory.SpragueGrundy.Games
             {
                 if (n < substraction)
                     continue;
-                set.Add(Grundy(n - substraction));
+                set.Add(SGValue(n - substraction));
             }
 
             return set;

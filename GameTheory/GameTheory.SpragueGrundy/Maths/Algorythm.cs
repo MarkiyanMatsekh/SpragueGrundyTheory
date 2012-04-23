@@ -7,6 +7,8 @@ namespace GameTheory.SpragueGrundy.Maths
     {
         public static uint Mex(HashSet<uint> set)
         {
+            if (!set.Any())
+                return 0;
             //creepy implementation
             uint max = set.Max(), i = 0;
             for (; i <= max; i++)

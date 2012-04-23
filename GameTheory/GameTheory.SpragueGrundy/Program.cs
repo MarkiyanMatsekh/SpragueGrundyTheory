@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameTheory.SpragueGrundy.Games;
+using GameTheory.SpragueGrundy.Maths;
 using GameTheory.SpragueGrundy.Results;
 
 namespace GameTheory.SpragueGrundy
@@ -30,17 +31,28 @@ namespace GameTheory.SpragueGrundy
             var queen = new QueenGame();
             var chomp = new ChompGame(10,10);
 
-            int n = 10;
-            for (int i = 1; i <= n; i++)
+            //int n = 10;
+            //for (int i = 1; i <= n; i++)
+            //{
+            //    for (int j = 1; j <= n; j++)
+            //    {
+            //        var sg = chomp.SGValue(new Coordinate(i, j));
+            //        var binary = sg == 0 ? 0 : 1;
+            //        Console.Write("{0}", sg);
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            var a = new XorEquation(4, 7, 9);
+            var b = a.Equals();
+            var zeros = a.FindZeroResults();
+            foreach (var zero in zeros)
             {
-                for (int j = 1; j <= n; j++)
-                {
-                    var sg = chomp.SGValue(new Coordinate(i, j));
-                    var binary = sg == 0 ? 0 : 1;
-                    Console.Write("{0}", sg);
-                }
-                Console.WriteLine();
+                var d = a.DoReplacement(zero);
+                var e = d.Equals();
             }
+
+
 
         }
     }

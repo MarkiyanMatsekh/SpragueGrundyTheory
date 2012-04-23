@@ -17,6 +17,6 @@ namespace GameTheory.SpragueGrundy.Maths
                     break;
             }
             return i;
-        }
+            }
     }
 }

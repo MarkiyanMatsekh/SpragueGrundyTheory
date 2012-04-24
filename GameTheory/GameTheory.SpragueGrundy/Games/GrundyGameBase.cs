@@ -1,25 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using GameTheory.SpragueGrundy.Maths;
 
 namespace GameTheory.SpragueGrundy.Games
 {
     public abstract class GrundyGameBase<TKey>
     {
+        public int RecursionCount = 0;
+        public int CachedRecCount = 0;
+
+        public int CachedObjects { get { return _cache.Count; } }
+
         private readonly Dictionary<TKey, uint> _cache = new Dictionary<TKey, uint>();
 
         public uint SGValue(TKey key)
         {
-            uint grundyValue;
+            RecursionCount++;
 
-            if (TryStopRecursion(key, out grundyValue))
-                return grundyValue;
+            uint grundyValue;
 
             if (TryGetCachedValue(key, out grundyValue))
                 return grundyValue;
+            
+            if (TryStopRecursion(key, out grundyValue))
+                return grundyValue;
 
+            CachedRecCount++;
             grundyValue = Algorythm.Mex(GetStateTransitions(key));
+
+            //Console.WriteLine(key.GetHashCode());
+            //Thread.Sleep(100);
 
             CacheValue(key, grundyValue);
 

@@ -22,8 +22,8 @@ namespace GameTheory.SpragueGrundy.Games
             if (this.Count != other.Count)
                 return false;
 
-            //this.Sort(); // very rude, redo this
-            //other.Sort();
+            this.Sort(); // very rude, redo this
+            other.Sort();
 
             for (int i = 0; i < Count; i++)
                 if (this[i] != other[i])
@@ -42,7 +42,9 @@ namespace GameTheory.SpragueGrundy.Games
 
         public override int GetHashCode()
         {
-            var res = this.Aggregate(0, (current, chip) => current ^ chip);
+            var res = 0;
+            foreach (int i in this)
+                res += i * (int)Math.Pow(10, Math.Abs(this.Count - i) %7);
             return res;
         }
 
@@ -146,7 +148,6 @@ namespace GameTheory.SpragueGrundy.Games
             {
                 spSet.Add(SGValue(list));
             }
-
             return spSet;
         }
     }

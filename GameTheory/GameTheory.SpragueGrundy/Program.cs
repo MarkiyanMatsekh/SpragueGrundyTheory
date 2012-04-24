@@ -14,9 +14,14 @@ namespace GameTheory.SpragueGrundy
         {
 
             var dawson = new DawsonsChessGame();
-            for (int i = 0; i < 19; i++)
+            for (int i = 0; i < 100; i++)
             {
-                Console.WriteLine("{0}-{1}",i,dawson.SGValue(new PileList() {i}));
+                dawson.RecursionCount = 0;
+                dawson.CachedRecCount = 0;
+                
+                
+                Console.WriteLine("{0}-{1}; rec - {2}, cached rec - {3}, cache count - {4}", i, dawson.SGValue(new PileList() {i}),
+                                  dawson.RecursionCount, dawson.CachedRecCount, dawson.CachedObjects);
             }
 
         }

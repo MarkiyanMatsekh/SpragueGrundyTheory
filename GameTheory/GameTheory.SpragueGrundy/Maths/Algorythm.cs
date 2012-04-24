@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,6 @@ namespace GameTheory.SpragueGrundy.Maths
                     break;
             }
             return i;
-            }
+        }
     }
 }

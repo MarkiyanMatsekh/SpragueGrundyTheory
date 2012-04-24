@@ -5,22 +5,21 @@ using System.Text;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public class KaylesGame : SpragueGrundyGameBase<uint>
+    public class DawsonsChessSlimGame : SpragueGrundyGameBase<uint>
     {
-        protected override bool TryStopRecursion(uint n, out uint value)
+        protected override bool TryStopRecursion(uint key, out uint value)
         {
-            value = 0;
-            if (n == 0)
+            if (key == 0)
             {
                 value = 0;
                 return true;
             }
-            if (n == 1)
+            if (key == 1)
             {
                 value = 1;
                 return true;
             }
-                
+            value = 0;
             return false;
         }
 
@@ -28,11 +27,9 @@ namespace GameTheory.SpragueGrundy.Games
         {
             var set = new HashSet<uint>();
 
-            for (uint i = 0; i <= key - 1; i++)
-                set.Add(SGValue(i) ^ SGValue(key - 1 - i));
-
-            for (uint i = 0; i <= key - 2; i++)
-                set.Add(SGValue(i) ^ SGValue(key - 2 - i));
+            set.Add(SGValue(key - 2));
+            for (uint i = 2; i <= key - 1; i++)
+                set.Add(SGValue(i - 2) ^ SGValue(key - i - 1));
 
             return set;
         }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public class QueenGame : GrundyGameBase<Coordinate>
+    public class QueenGame : SpragueGrundyGameBase<Coordinate>
     {
         protected override bool TryStopRecursion(Coordinate key, out uint value)
         {
@@ -16,7 +16,7 @@ namespace GameTheory.SpragueGrundy.Games
             return false;
         }
 
-        protected override HashSet<uint> GetStateTransitions(Coordinate key)
+        protected override HashSet<uint> GetSGValuesForTransitions(Coordinate key)
         {
             var set = new HashSet<uint>();
 

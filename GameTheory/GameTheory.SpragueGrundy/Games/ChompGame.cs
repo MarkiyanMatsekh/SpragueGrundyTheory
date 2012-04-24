@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public class ChompGame : GrundyGameBase<Coordinate>
+    public class ChompGame : SpragueGrundyGameBase<Coordinate>
     {
         public uint N { get; private set; }
         public uint M { get; private set; }
@@ -26,7 +26,7 @@ namespace GameTheory.SpragueGrundy.Games
             return false;
         }
 
-        protected override HashSet<uint> GetStateTransitions(Coordinate key)
+        protected override HashSet<uint> GetSGValuesForTransitions(Coordinate key)
         {
             var set = new HashSet<uint>();
             var map = new HashSet<Coordinate>();

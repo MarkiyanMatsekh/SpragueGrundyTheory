@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public class LaskersNimGame : GrundyGameBase<uint>
+    public class LaskersNimGame : SpragueGrundyGameBase<uint>
     {
         protected override bool TryStopRecursion(uint n, out uint stop)
         {
@@ -10,7 +10,7 @@ namespace GameTheory.SpragueGrundy.Games
             return n == 0;
         }
 
-        protected override HashSet<uint> GetStateTransitions(uint n)
+        protected override HashSet<uint> GetSGValuesForTransitions(uint n)
         {
             var set = new HashSet<uint>();
 

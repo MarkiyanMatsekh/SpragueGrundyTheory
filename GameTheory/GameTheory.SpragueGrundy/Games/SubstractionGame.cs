@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public class SubstractionGame : GrundyGameBase<uint>
+    public class SubstractionGame : SpragueGrundyGameBase<uint>
     {
         private readonly HashSet<uint> _substractionSet;
 
@@ -28,7 +28,7 @@ namespace GameTheory.SpragueGrundy.Games
             return false;
         }
 
-        protected override HashSet<uint> GetStateTransitions(uint n)
+        protected override HashSet<uint> GetSGValuesForTransitions(uint n)
         {
             var set = new HashSet<uint>();
 

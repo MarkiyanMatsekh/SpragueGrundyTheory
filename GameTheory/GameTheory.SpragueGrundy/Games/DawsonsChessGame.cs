@@ -73,7 +73,7 @@ namespace GameTheory.SpragueGrundy.Games
     }
 
     // winning strategy is to always try to make nim-sum of the rest of piles == 0 (that is - to make them equal, in case of 2 piles);
-    public class DawsonsChessGame : GrundyGameBase<PileList>
+    public class DawsonsChessGame : SpragueGrundyGameBase<PileList>
     {
         protected override bool TryStopRecursion(PileList key, out uint value)
         {
@@ -87,7 +87,7 @@ namespace GameTheory.SpragueGrundy.Games
             return false;
         }
 
-        public override HashSet<PileList> GetStateTransitions2(PileList key)
+        public override HashSet<PileList> GetStateTransitions(PileList key)
         {
             var set = new HashSet<PileList>();
 
@@ -138,20 +138,16 @@ namespace GameTheory.SpragueGrundy.Games
                     set.Add(new PileList(list) { j, leftChipsCount - j });
             }
 
-            // little cleanup - theoretically, zeros dont affect xor-sum, but they affect
-            // foreach (var pile in set)
-            //pile.Remove(0);
-
             return set;
         }
 
-        protected override HashSet<uint> GetStateTransitions(PileList key)
+        protected override HashSet<uint> GetSGValuesForTransitions(PileList key)
         {
             var spSet = new HashSet<uint>();
 
-            //Parallel.ForEach(GetStateTransitions2(key), list => spSet.Add(SGValue(list)));
+            //Parallel.ForEach(GetStateTransitions(key), list => spSet.Add(SGValue(list)));
 
-            foreach (var list in GetStateTransitions2(key))
+            foreach (var list in GetStateTransitions(key))
             {
                 spSet.Add(SGValue(list));
             }

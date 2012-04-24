@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public class WhiteKnightGame : GrundyGameBase<Coordinate>
+    public class WhiteKnightGame : SpragueGrundyGameBase<Coordinate>
     {
         protected override bool TryStopRecursion(Coordinate key, out uint value)
         {
@@ -18,7 +18,7 @@ namespace GameTheory.SpragueGrundy.Games
             return false;
         }
 
-        protected override HashSet<uint> GetStateTransitions(Coordinate key)
+        protected override HashSet<uint> GetSGValuesForTransitions(Coordinate key)
         {
             var set = new HashSet<uint>();
             var possibleMoves = new[]

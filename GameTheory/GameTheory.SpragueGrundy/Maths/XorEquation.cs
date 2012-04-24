@@ -16,7 +16,7 @@ namespace GameTheory.SpragueGrundy.Maths
                 Operands.AddRange(operands);
         }
 
-        public int Equals()
+        public int Sum()
         {
             return Sum(exceptIndex: -1);
         }
@@ -45,7 +45,6 @@ namespace GameTheory.SpragueGrundy.Maths
             var xorEquation = new XorEquation(Operands.ToArray());
             xorEquation.Operands[zero.Index] = zero.Replacement;
             return xorEquation;
-
         }
 
         public class ZeroResult

@@ -43,14 +43,18 @@ namespace GameTheory.SpragueGrundy
             //    Console.WriteLine();
             //}
 
-            var a = new XorEquation(4, 7, 9);
-            var b = a.Equals();
-            var zeros = a.FindZeroResults();
-            foreach (var zero in zeros)
-            {
-                var d = a.DoReplacement(zero);
-                var e = d.Equals();
-            }
+            //var a = new XorEquation(4, 7, 9);
+            //var b = a.Sum();
+            //var zeros = a.FindZeroResults();
+            //foreach (var zero in zeros)
+            //{
+            //    var d = a.DoReplacement(zero);
+            //    var e = d.Sum();
+            //}
+
+            var dawson = new DawsonsChessGame();
+            var a = dawson.GetStateTransitions2(new List<int>() {1});
+
 
 
 

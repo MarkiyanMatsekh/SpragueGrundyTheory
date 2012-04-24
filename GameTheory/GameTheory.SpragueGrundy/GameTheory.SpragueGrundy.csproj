@@ -50,6 +50,7 @@
     <Compile Include="Games\QueenGame.cs" />
     <Compile Include="Games\SubstractionGame.cs" />
     <Compile Include="Games\WhiteKnightGame.cs" />
+    <Compile Include="Helpers\Extentions.cs" />
     <Compile Include="Maths\Algorythm.cs" />
     <Compile Include="Maths\XorEquation.cs" />
     <Compile Include="Program.cs" />

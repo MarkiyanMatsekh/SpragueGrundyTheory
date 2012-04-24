@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using GameTheory.SpragueGrundy.Helpers;
 
 namespace GameTheory.SpragueGrundy.Games
@@ -22,11 +23,14 @@ namespace GameTheory.SpragueGrundy.Games
             if (this.Count != other.Count)
                 return false;
 
-            this.Sort(); // very rude, redo this
-            other.Sort();
+            var thisCopy = new PileList(this);
+            var otherCopy = new PileList(other);
+
+            thisCopy.Sort(); // very rude, redo this
+            otherCopy.Sort();
 
             for (int i = 0; i < Count; i++)
-                if (this[i] != other[i])
+                if (thisCopy[i] != otherCopy[i])
                     return false;
 
             return true;
@@ -44,7 +48,7 @@ namespace GameTheory.SpragueGrundy.Games
         {
             var res = 0;
             foreach (int i in this)
-                res += i * (int)Math.Pow(10, Math.Abs(this.Count - i) %7);
+                res += i * (int)Math.Pow(7, Math.Abs(this.Count - i) % 7);
             return res;
         }
 
@@ -135,8 +139,8 @@ namespace GameTheory.SpragueGrundy.Games
             }
 
             // little cleanup - theoretically, zeros dont affect xor-sum, but they affect
-           // foreach (var pile in set)
-                //pile.Remove(0);
+            // foreach (var pile in set)
+            //pile.Remove(0);
 
             return set;
         }
@@ -144,6 +148,9 @@ namespace GameTheory.SpragueGrundy.Games
         protected override HashSet<uint> GetStateTransitions(PileList key)
         {
             var spSet = new HashSet<uint>();
+
+            //Parallel.ForEach(GetStateTransitions2(key), list => spSet.Add(SGValue(list)));
+
             foreach (var list in GetStateTransitions2(key))
             {
                 spSet.Add(SGValue(list));

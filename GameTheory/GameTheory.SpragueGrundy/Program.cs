@@ -19,7 +19,6 @@ namespace GameTheory.SpragueGrundy
                 dawson.RecursionCount = 0;
                 dawson.CachedRecCount = 0;
                 
-                
                 Console.WriteLine("{0}-{1}; rec - {2}, cached rec - {3}, cache count - {4}", i, dawson.SGValue(new PileList() {i}),
                                   dawson.RecursionCount, dawson.CachedRecCount, dawson.CachedObjects);
             }

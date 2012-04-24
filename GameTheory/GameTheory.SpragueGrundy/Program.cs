@@ -53,11 +53,15 @@ namespace GameTheory.SpragueGrundy
             //}
 
             var dawson = new DawsonsChessGame();
-            var a = dawson.GetStateTransitions2(new List<int>() {1});
+            var a = dawson.GetStateTransitions2(new List<int>() {2,9});
 
+            var b = dawson.SGValue(new List<int>() {5});
 
-
-
+            foreach (var set in a)
+            {
+                var c = new XorEquation(set);
+                var d = c.FindZeroResults();
+            }
         }
     }
 }

@@ -9,6 +9,11 @@ namespace GameTheory.SpragueGrundy.Maths
     {
         public List<int> Operands { get; private set; }
 
+        public XorEquation(List<int> operands)
+        {
+            Operands = operands;
+        }
+
         public XorEquation(params int[] operands)
         {
             Operands = new List<int>();
@@ -26,7 +31,7 @@ namespace GameTheory.SpragueGrundy.Maths
             return Operands.Where((t, i) => i != exceptIndex).Aggregate(0, (current, t) => current ^ t);
         }
 
-        public List<ZeroResult> FindZeroResults()
+        public List<ZeroResult> FindZeroResults( )
         {
             var result = new List<ZeroResult>();
 

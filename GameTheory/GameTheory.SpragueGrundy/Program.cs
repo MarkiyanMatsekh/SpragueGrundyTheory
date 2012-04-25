@@ -13,8 +13,8 @@ namespace GameTheory.SpragueGrundy
         static void Main(string[] args)
         {
 
-            var dawson2 = new DawsonsChessGame();
-            var dawson = new DawsonsChessSlimGame();
+            var dawson = new DawsonsChessGame();
+            var dawson2 = new DawsonsChessSlimGame();
             for (uint i = 0; i < 1000; i++)
             {
                 dawson.RecursionCount = 0;

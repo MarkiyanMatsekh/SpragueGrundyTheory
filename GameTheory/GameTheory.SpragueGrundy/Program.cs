@@ -15,11 +15,6 @@ namespace GameTheory.SpragueGrundy
             private object o;
             private List<int> list;
             private int i;
-
-            unsafe public void B()
-            {
-                
-            }
         }
 
         static void Main(string[] args)

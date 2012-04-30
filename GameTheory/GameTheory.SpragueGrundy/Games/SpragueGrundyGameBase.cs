@@ -10,8 +10,20 @@ namespace GameTheory.SpragueGrundy.Games
 {
     public abstract class SpragueGrundyGameBase<TKey>
     {
-        public int RecursionCount = 0;
-        public int CachedRecCount = 0;
+        protected SpragueGrundyGameBase()
+        {
+            RecursionCount = 0;
+            CachedRecCount = 0;
+        }
+
+        public int RecursionCount { get; private set; }
+        public int CachedRecCount { get; private set; }
+
+        public void ResetCounters()
+        {
+            RecursionCount = 0;
+            CachedRecCount = 0;
+        }
 
         public int CachedObjects { get { return _cache.Count; } }
 

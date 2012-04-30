@@ -38,8 +38,8 @@ namespace GameTheory.SpragueGrundy.Games
 
     public class Coordinate : IEquatable<Coordinate>
     {
-        public int X;
-        public int Y;
+        public readonly int X;
+        public readonly int Y;
 
         public bool Equals(Coordinate other)
         {

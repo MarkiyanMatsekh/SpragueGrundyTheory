@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace GameTheory.SpragueGrundy.Games
@@ -16,22 +17,21 @@ namespace GameTheory.SpragueGrundy.Games
             return false;
         }
 
-        protected override HashSet<uint> GetSGValuesForTransitions(Coordinate key)
+        protected override HashSet<uint> GetSGValuesForTransitions(Coordinate key)  
         {
             var set = new HashSet<uint>();
 
-            int y = key.Y, x = key.X;
+            int x = key.X, y = key.Y;
 
             for (int i = 1; i < x; i++)
-            {
                 set.Add(SGValue(new Coordinate(x - i, y)));
+
+            var northWestBound = Math.Min(x, y);
+            for (int i = 1; i < northWestBound; i++)
                 set.Add(SGValue(new Coordinate(x - i, y - i)));
-            }
 
             for (int i = 1; i < y; i++)
-            {
                 set.Add(SGValue(new Coordinate(x, y - i)));
-            }
 
             return set;
         }

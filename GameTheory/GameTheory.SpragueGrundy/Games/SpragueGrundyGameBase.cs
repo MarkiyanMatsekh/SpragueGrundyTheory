@@ -8,7 +8,7 @@ using GameTheory.SpragueGrundy.Maths;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-    public abstract class SpragueGrundyGameBase<TKey>
+        public abstract class SpragueGrundyGameBase<TKey>
     {
         protected SpragueGrundyGameBase()
         {
@@ -35,16 +35,16 @@ namespace GameTheory.SpragueGrundy.Games
 
             uint grundyValue;
 
-            if (TryGetCachedValue(key, out grundyValue))
-                return grundyValue;
+           // if (TryGetCachedValue(key, out grundyValue))
+           //     return grundyValue;
             
             if (TryStopRecursion(key, out grundyValue))
                 return grundyValue;
 
-            CachedRecCount++;
+          //  CachedRecCount++;
             grundyValue = Algorythm.Mex(GetSGValuesForTransitions(key));
 
-            CacheValue(key, grundyValue);
+          //  CacheValue(key, grundyValue);
 
             return grundyValue;
         }
@@ -55,7 +55,7 @@ namespace GameTheory.SpragueGrundy.Games
 
         public virtual HashSet<TKey> GetStateTransitions(TKey key)
         {
-            throw new IOException("The given game doesn't provide state transitions view, only sprague-grundy values");
+            throw new InvalidOperationException("The given game doesn't provide state transitions view, only sprague-grundy values");
         }
         
         private void CacheValue(TKey key, uint grundyValue)

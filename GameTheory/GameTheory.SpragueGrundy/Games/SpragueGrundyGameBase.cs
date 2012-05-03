@@ -35,16 +35,16 @@ namespace GameTheory.SpragueGrundy.Games
 
             uint grundyValue;
 
-           // if (TryGetCachedValue(key, out grundyValue))
-           //     return grundyValue;
+            if (TryGetCachedValue(key, out grundyValue))
+                return grundyValue;
             
             if (TryStopRecursion(key, out grundyValue))
                 return grundyValue;
 
-          //  CachedRecCount++;
+            CachedRecCount++;
             grundyValue = Algorythm.Mex(GetSGValuesForTransitions(key));
 
-          //  CacheValue(key, grundyValue);
+            CacheValue(key, grundyValue);
 
             return grundyValue;
         }

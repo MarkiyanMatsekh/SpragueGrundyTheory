@@ -27,16 +27,25 @@ namespace GameTheory.SpragueGrundy
             var queen = new QueenGame();
             var dawson = new DawsonsChessGame();
             var dawson2 = new DawsonsChessSlimGame();
+            var lasker = new WhiteKnightGame();
             var stopWatch = new Stopwatch();
-            for (int i = 1; i < 100; i++)
+
+            int n = 19;
+            for (int i = 1; i < n; i++)
             {
                 stopWatch.Reset();
                 stopWatch.Start();
-                var value = dawson.SGValue(new PileList() { i });
-                var time = stopWatch.ElapsedMilliseconds;
-                stopWatch.Stop();
-                Console.WriteLine("{0}.\tSG={1},\trecursion={2},\tcached={3},\ttime={4}ms", 
-                    i, value, dawson.RecursionCount, dawson.CachedRecCount,time);
+                //var value = dawson.SGValue(new PileList() { i });
+                for (int j = 1; j < n; j++)
+                {
+
+
+                    var value = lasker.SGValue(new Coordinate(i, j));
+                    var time = stopWatch.ElapsedMilliseconds;
+                    stopWatch.Stop();
+                    Console.Write("{0}",value > 0 ? 1 : 0);
+                }
+                Console.WriteLine();
             }
 
 

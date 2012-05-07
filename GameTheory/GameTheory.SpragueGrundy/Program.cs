@@ -11,47 +11,92 @@ namespace GameTheory.SpragueGrundy
 {
     class Program
     {
-        public static void Main()
+        private static void ShowUsage()
         {
-            //var dawson2 = new DawsonsChessGame();
-            //var dawson = new DawsonsChessSlimGame();
-            //for (uint i = 0; i < 1000; i++)
-            //{
-            //    dawson.ResetCounters();
-
-
-            //    Console.WriteLine("{0}-{1}; rec - {2}, cached rec - {3}, cache count - {4}", i, dawson.SGValue(i),
-            //                      dawson.RecursionCount, dawson.CachedRecCount, dawson.CachedObjects);
-            //}
-
-            var queen = new QueenGame();
-            var dawson = new DawsonsChessGame();
-            var dawson2 = new DawsonsChessSlimGame();
-            var lasker = new WhiteKnightGame();
-            var stopWatch = new Stopwatch();
-
-            int n = 19;
-            for (int i = 1; i < n; i++)
-            {
-                stopWatch.Reset();
-                stopWatch.Start();
-                //var value = dawson.SGValue(new PileList() { i });
-                for (int j = 1; j < n; j++)
-                {
-
-
-                    var value = lasker.SGValue(new Coordinate(i, j));
-                    var time = stopWatch.ElapsedMilliseconds;
-                    stopWatch.Stop();
-                    Console.Write("{0}",value > 0 ? 1 : 0);
-                }
-                Console.WriteLine();
-            }
-
-
+            string separator = Environment.NewLine;
+            Console.WriteLine("Please choose the game to play(or type 'exit' ot quit:");
+            Console.WriteLine("chomp{0}dawson-chess{0}dawson-chess-slim{0}" +
+                "kayles{0}laskers-nim{0}corner-the-queen{0}substraction-game", separator);
         }
 
+        private static void ReadSingleParam(out int n)
+        {
+            Console.WriteLine("Please input parameter for game");
+            n = int.Parse(Console.ReadLine());
+        }
 
+        private static void ReadTwoParams(out int n, out int m)
+        {
+            Console.WriteLine("Please input 2 parameters for game (separated by comma)");
+            var _params = Console.ReadLine().Split(',').Select(p => p.Trim()).ToArray();
 
+            n = int.Parse(_params[0]);
+            m = int.Parse(_params[1]);
+        }
+
+        private static void ShowAnswer(uint sgValue)
+        {
+            Console.WriteLine("Sprague-Grundy value of this position is {0}, so this is {1}-position", 
+                sgValue,
+                sgValue > 0 ? "N" : "P");
+        }
+
+        public static void Main()
+        {
+            ShowUsage();
+
+            int p1, p2;
+            bool repeat = true;
+
+            while (repeat)
+            {
+                string gameStr = Console.ReadLine();
+                if (string.IsNullOrEmpty(gameStr))
+                    continue;
+                switch (gameStr)
+                {
+                    case "chomp":
+                        Console.WriteLine("This game cannot be solved with Sprague-Grundy Theory due to cycles in graph");
+                        break;
+                    case "dawson-chess":
+                        var dawson = new DawsonsChessGame();
+                        ReadSingleParam(out p1);
+                        ShowAnswer(dawson.SGValue(new PileList() { p1 }));
+                        break;
+                    case "dawson-chess-slim":
+                        var dawsonSlim = new DawsonsChessSlimGame();
+                        ReadSingleParam(out p1);
+                        ShowAnswer(dawsonSlim.SGValue((uint)p1));
+                        break;
+                    case "kayles":
+                        var kayles = new KaylesGame();
+                        ReadSingleParam(out p1);
+                        ShowAnswer(kayles.SGValue((uint)p1));
+                        break;
+                    case "laskers-nim":
+                        var lasker = new LaskersNimGame();
+                        ReadSingleParam(out p1);
+                        ShowAnswer(lasker.SGValue((uint)p1));
+                        break;
+                    case "corner-the-queen":
+                        var queen = new QueenGame();
+                        ReadTwoParams(out p1, out p2);
+                        ShowAnswer(queen.SGValue(new Coordinate(p1, p2)));
+                        break;
+                    case "whight-knight":
+                        var knight = new QueenGame();
+                        ReadTwoParams(out p1, out p2);
+                        ShowAnswer(knight.SGValue(new Coordinate(p1, p2)));
+                        break;
+                    case "exit":
+                        repeat = false;
+                        break;
+                    default:
+                        Console.WriteLine("invalid game...");
+                        ShowUsage();
+                        break;
+                }
+            }
+        }
     }
 }

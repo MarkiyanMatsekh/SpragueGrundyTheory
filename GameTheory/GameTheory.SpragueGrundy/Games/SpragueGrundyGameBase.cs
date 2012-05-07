@@ -8,7 +8,12 @@ using GameTheory.SpragueGrundy.Maths;
 
 namespace GameTheory.SpragueGrundy.Games
 {
-        public abstract class SpragueGrundyGameBase<TKey>
+
+    public abstract class GameBase
+    {
+    }
+
+    public abstract class SpragueGrundyGameBase<TKey> : GameBase
     {
         protected SpragueGrundyGameBase()
         {

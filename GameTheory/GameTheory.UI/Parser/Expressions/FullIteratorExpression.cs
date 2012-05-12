@@ -5,29 +5,33 @@ namespace GameTheory.UI.Parser.Expressions
 {
     public class FullIteratorExpression : EvaluatableExpression, IEquatable<FullIteratorExpression>
     {
-        public SimpleExpression IterateFrom { get;  private set; }
-        public SimpleExpression IterateTo { get; private set; }
-        public IteratorExpression IteratorExpression { get; private set; }
+        public IteratorRangeExpression Range { get; private set; }
+        public IteratorBodyExpression Body { get; private set; }
 
-        public FullIteratorExpression(IteratorExpression iteratorExpression, SimpleExpression iterateFrom, SimpleExpression iterateTo)
+        public FullIteratorExpression(IteratorBodyExpression body, IteratorRangeExpression range)
         {
-            IteratorExpression = iteratorExpression;
-            IterateFrom = iterateFrom;
-            IterateTo = iterateTo;
+            Body = body;
+            Range = range;
+        }
+
+        public FullIteratorExpression(IteratorBodyExpression body, SimpleExpression from, SimpleExpression to)
+        {
+            Body = body;
+            Range = new IteratorRangeExpression(from, to);
         }
 
         public override List<int> Evaluate(int n)
         {
             var result = new List<int>();
-            int arg1 = IteratorExpression.HasVariable ? n : 0;
+            int arg1 = Body.HasVariable ? n : 0;
 
-            int from = IterateFrom.Evaluate(n)[0],
-                to = IterateTo.Evaluate(n)[0];
+            int from = Range.From.Evaluate(n)[0],
+                to = Range.To.Evaluate(n)[0];
 
             for (int i = from; i <= to; i++)
             {
-                result.Add(EvaluateSimpleOperation(arg1, IteratorExpression.OperationOnIterator,
-                    EvaluateSimpleOperation(i, IteratorExpression.OperationOnArgument, IteratorExpression.Argument)));
+                result.Add(EvaluateSimpleOperation(arg1, Body.OperationOnIterator,
+                    EvaluateSimpleOperation(i, Body.OperationOnArgument, Body.Argument)));
             }
 
             return result;
@@ -37,17 +41,14 @@ namespace GameTheory.UI.Parser.Expressions
 
         public override string ToString()
         {
-            return string.Format("{0},{1}..{2}",
-                IteratorExpression,
-                IterateFrom,
-                IterateTo);
+            return string.Format("{0},{1}", Body, Range);
         }
 
         public bool Equals(FullIteratorExpression other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(other.IterateFrom, IterateFrom) && Equals(other.IterateTo, IterateTo) && Equals(other.IteratorExpression, IteratorExpression);
+            return Equals(other.Range, Range) && Equals(other.Body, Body);
         }
 
         public override bool Equals(object obj)
@@ -62,10 +63,7 @@ namespace GameTheory.UI.Parser.Expressions
         {
             unchecked
             {
-                int result = IterateFrom.GetHashCode();
-                result = (result*397) ^ IterateTo.GetHashCode();
-                result = (result*397) ^ IteratorExpression.GetHashCode();
-                return result;
+                return (Range.GetHashCode()*397) ^ Body.GetHashCode();
             }
         }
 

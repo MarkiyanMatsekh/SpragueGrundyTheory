@@ -16,8 +16,6 @@ namespace GameTheory.UI.Parser
 
         public const char VariableSymbol = 'n';
 
-        public const char MinusSymbol = '-';
-
         public static List<EvaluatableExpression> ParseMultipleTransitions(string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -66,13 +64,18 @@ namespace GameTheory.UI.Parser
             if (parts.Length != 2)
                 throw new ArgumentException("Iterations must have 2 parts");
 
-            var expPart = parts[0];
-            var rangePart = parts[1];
+            var body = ParseIteratorBodyExpression(parts[0]);
+            var range = ParseIteratorRangeExpression(parts[1]);
 
-            if (!rangePart.StartsWith(string.Format("{0}{1}", IteratorSymbol, IteratorStartSymbol)))
+            return new FullIteratorExpression(body, range);
+        }
+
+        public static IteratorRangeExpression ParseIteratorRangeExpression(string expression)
+        {
+            if (!expression.StartsWith(string.Format("{0}{1}", IteratorSymbol, IteratorStartSymbol)))
                 throw new ArgumentException("Range part must start with iterator declaration");
 
-            var range = rangePart.SubstringAfter(IteratorStartSymbol);
+            var range = expression.SubstringAfter(IteratorStartSymbol);
             var rangeParts = range.Split(IteratorRangeSymbol);
             if (rangeParts.Length != 2)
                 throw new ArgumentException("iterator range must have exactly 2 parts");
@@ -83,12 +86,10 @@ namespace GameTheory.UI.Parser
             var iterateFrom = ParseSimpleExpression(left);
             var iterateTo = ParseSimpleExpression(right);
 
-            var subExpression = ParseIteratorExpression(expPart);
-
-            return new FullIteratorExpression(subExpression, iterateFrom, iterateTo);
+            return new IteratorRangeExpression(iterateFrom, iterateTo);
         }
 
-        public static IteratorExpression ParseIteratorExpression(string expression)
+        public static IteratorBodyExpression ParseIteratorBodyExpression(string expression)
         {
             if (string.IsNullOrEmpty(expression))
                 throw new ArgumentException("expression cannot be null");
@@ -116,8 +117,8 @@ namespace GameTheory.UI.Parser
             var subeExpression = ParseSimpleExpression(expression, IteratorSymbol);
 
             return subeExpression.HasArgument
-                ? new IteratorExpression(hasVariable, opOnIterator, subeExpression.Operation, subeExpression.Argument)
-                : new IteratorExpression(hasVariable, opOnIterator);
+                ? new IteratorBodyExpression(hasVariable, opOnIterator, subeExpression.Operation, subeExpression.Argument)
+                : new IteratorBodyExpression(hasVariable, opOnIterator);
         }
 
         public static SimpleExpression ParseSimpleExpression(string expression, char variableSymbol = VariableSymbol)

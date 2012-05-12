@@ -74,8 +74,8 @@ namespace GameTheory.Tests
         public void WithSubstractionAndArgAddition()
         {
             var exp = "n-i+3";
-            var res = GameLogicParser.ParseIteratorExpression(exp);
-            var expected = new IteratorExpression(true, Operation.Minus, Operation.Plus, 3);
+            var res = GameLogicParser.ParseIteratorBodyExpression(exp);
+            var expected = new IteratorBodyExpression(true, Operation.Minus, Operation.Plus, 3);
 
             Assert.That(res, Is.EqualTo(expected));
         }
@@ -84,8 +84,8 @@ namespace GameTheory.Tests
         public void WithSubstractionAndArgSubsstraction()
         {
             var exp = "n-i-5";
-            var res = GameLogicParser.ParseIteratorExpression(exp);
-            var expected = new IteratorExpression(true, Operation.Minus, Operation.Minus, 5);
+            var res = GameLogicParser.ParseIteratorBodyExpression(exp);
+            var expected = new IteratorBodyExpression(true, Operation.Minus, Operation.Minus, 5);
 
             Assert.That(res, Is.EqualTo(expected));
         }
@@ -94,8 +94,8 @@ namespace GameTheory.Tests
         public void WithAdditionAndArgAddition()
         {
             var exp = "n+i+2";
-            var res = GameLogicParser.ParseIteratorExpression(exp);
-            var expected = new IteratorExpression(true, Operation.Plus, Operation.Plus, 2);
+            var res = GameLogicParser.ParseIteratorBodyExpression(exp);
+            var expected = new IteratorBodyExpression(true, Operation.Plus, Operation.Plus, 2);
 
             Assert.That(res, Is.EqualTo(expected));
         }
@@ -104,8 +104,8 @@ namespace GameTheory.Tests
         public void WithAdditionAndArgSubstraction()
         {
             var exp = "n+i-8";
-            var res = GameLogicParser.ParseIteratorExpression(exp);
-            var expected = new IteratorExpression(true, Operation.Plus, Operation.Minus, 8);
+            var res = GameLogicParser.ParseIteratorBodyExpression(exp);
+            var expected = new IteratorBodyExpression(true, Operation.Plus, Operation.Minus, 8);
 
             Assert.That(res, Is.EqualTo(expected));
         }
@@ -114,8 +114,8 @@ namespace GameTheory.Tests
         public void WithBiggerNumber()
         {
             var exp = "n-i+8904";
-            var res = GameLogicParser.ParseIteratorExpression(exp);
-            var expected = new IteratorExpression(true, Operation.Minus, Operation.Plus, 8904);
+            var res = GameLogicParser.ParseIteratorBodyExpression(exp);
+            var expected = new IteratorBodyExpression(true, Operation.Minus, Operation.Plus, 8904);
 
             Assert.That(res, Is.EqualTo(expected));
         }
@@ -129,7 +129,7 @@ namespace GameTheory.Tests
         {
             var exp = "n-i+3,i=1..2";
             var res = GameLogicParser.ParseFullIteratorExpression(exp);
-            var expected = new FullIteratorExpression(new IteratorExpression(true, Operation.Minus, Operation.Plus, 3),
+            var expected = new FullIteratorExpression(new IteratorBodyExpression(true, Operation.Minus, Operation.Plus, 3),
                                                       new SimpleExpression(1), new SimpleExpression(2));
 
             Assert.That(res, Is.EqualTo(expected));
@@ -140,7 +140,7 @@ namespace GameTheory.Tests
         {
             var exp = "n-i+3,i=1..n";
             var res = GameLogicParser.ParseFullIteratorExpression(exp);
-            var expected = new FullIteratorExpression(new IteratorExpression(true, Operation.Minus, Operation.Plus, 3),
+            var expected = new FullIteratorExpression(new IteratorBodyExpression(true, Operation.Minus, Operation.Plus, 3),
                                                       new SimpleExpression(1), SimpleExpression.VariableOnly());
 
             Assert.That(res, Is.EqualTo(expected));
@@ -151,7 +151,7 @@ namespace GameTheory.Tests
         {
             var exp = "n-i+3,i=1..n-2";
             var res = GameLogicParser.ParseFullIteratorExpression(exp);
-            var expected = new FullIteratorExpression(new IteratorExpression(true, Operation.Minus, Operation.Plus, 3),
+            var expected = new FullIteratorExpression(new IteratorBodyExpression(true, Operation.Minus, Operation.Plus, 3),
                                           new SimpleExpression(1), new SimpleExpression(Operation.Minus, 2));
             Assert.That(res, Is.EqualTo(expected));
         }
@@ -161,7 +161,7 @@ namespace GameTheory.Tests
         {
             var exp = "n-i+3,i=n-3..n-1";
             var res = GameLogicParser.ParseFullIteratorExpression(exp);
-            var expected = new FullIteratorExpression(new IteratorExpression(true, Operation.Minus, Operation.Plus, 3),
+            var expected = new FullIteratorExpression(new IteratorBodyExpression(true, Operation.Minus, Operation.Plus, 3),
                                           new SimpleExpression(Operation.Minus, 3), new SimpleExpression(Operation.Minus, 1));
 
             Assert.That(res, Is.EqualTo(expected));

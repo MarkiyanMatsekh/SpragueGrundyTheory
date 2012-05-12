@@ -56,7 +56,9 @@
   <ItemGroup>
     <Compile Include="Parser\Expressions\ExpressionBase.cs" />
     <Compile Include="Parser\Expressions\FullIteratorExpression.cs" />
-    <Compile Include="Parser\Expressions\IteratorExpression.cs" />
+    <Compile Include="Parser\Expressions\GameSumExpression.cs" />
+    <Compile Include="Parser\Expressions\IteratorBodyExpression.cs" />
+    <Compile Include="Parser\Expressions\IteratorRangeExpression.cs" />
     <Compile Include="Parser\Expressions\SimpleExpression.cs" />
     <Compile Include="Parser\GameLogicParser.cs" />
     <Compile Include="MainForm.cs">

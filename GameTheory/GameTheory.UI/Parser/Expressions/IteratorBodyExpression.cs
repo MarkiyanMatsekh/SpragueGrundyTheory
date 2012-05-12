@@ -2,7 +2,7 @@ using System;
 
 namespace GameTheory.UI.Parser.Expressions
 {
-    public class IteratorExpression : ExpressionsBase, IEquatable<IteratorExpression>
+    public class IteratorBodyExpression : ExpressionsBase, IEquatable<IteratorBodyExpression>
     {
         public bool HasVariable { get; private set; }
         public bool HasArgument { get; private set; }
@@ -11,7 +11,7 @@ namespace GameTheory.UI.Parser.Expressions
         public int Argument { get; private set; }
 
 
-        private IteratorExpression(bool hasVariable, Operation operationOnIterator, bool hasArgument, Operation operationOnArgument, int argument)
+        private IteratorBodyExpression(bool hasVariable, Operation operationOnIterator, bool hasArgument, Operation operationOnArgument, int argument)
         {
             HasVariable = hasVariable;
             HasArgument = hasArgument;
@@ -20,12 +20,12 @@ namespace GameTheory.UI.Parser.Expressions
             Argument = argument;
         }
 
-        public IteratorExpression(bool hasVariable, Operation operationOnIterator, Operation operationOnArgument, int argument)
+        public IteratorBodyExpression(bool hasVariable, Operation operationOnIterator, Operation operationOnArgument, int argument)
             : this(hasVariable, operationOnIterator, true, operationOnArgument, argument)
         {
         }
 
-        public IteratorExpression(bool hasVariable, Operation operationOnIterator)
+        public IteratorBodyExpression(bool hasVariable, Operation operationOnIterator)
             : this(hasVariable, operationOnIterator, false, Operation.None, 0)
         {
         }
@@ -41,7 +41,7 @@ namespace GameTheory.UI.Parser.Expressions
                                  HasArgument ? Argument.ToString() : string.Empty);
         }
 
-        public bool Equals(IteratorExpression other)
+        public bool Equals(IteratorBodyExpression other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -57,8 +57,8 @@ namespace GameTheory.UI.Parser.Expressions
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (IteratorExpression)) return false;
-            return Equals((IteratorExpression) obj);
+            if (obj.GetType() != typeof (IteratorBodyExpression)) return false;
+            return Equals((IteratorBodyExpression) obj);
         }
 
         public override int GetHashCode()

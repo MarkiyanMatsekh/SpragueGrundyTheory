@@ -18,14 +18,14 @@ namespace GameTheory.UI.Parser
 
         public const char MinusSymbol = '-';
 
-        public static List<ExpressionBase> ParseMultipleTransitions(string text)
+        public static List<EvaluatableExpression> ParseMultipleTransitions(string text)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentNullException("text");
 
             var transitions = text.Split(TransitionsSeparator);
 
-            var transitionsList = new List<ExpressionBase>();
+            var transitionsList = new List<EvaluatableExpression>();
 
             foreach (var transtitionStr in transitions)
             {
@@ -37,17 +37,17 @@ namespace GameTheory.UI.Parser
             return transitionsList;
         }
 
-        public static ExpressionBase ParseSingleTransition(string transtition)
+        public static EvaluatableExpression ParseSingleTransition(string transtition)
         {
             if (string.IsNullOrEmpty(transtition))
                 return null;
 
-            ExpressionBase exp;
+            EvaluatableExpression exp;
 
             var trimmed = transtition.Replace(" ", string.Empty); // remove spaces
 
             if (trimmed.Contains(IteratorSymbol))
-                exp = ParseFullExpressionWithIterator(trimmed);
+                exp = ParseFullIteratorExpression(trimmed);
             else
                 exp = ParseSimpleExpression(trimmed);
 
@@ -55,9 +55,9 @@ namespace GameTheory.UI.Parser
 
         }
 
-        public static FullExpressionWithIterator ParseFullExpressionWithIterator(string strExpression)
+        public static FullIteratorExpression ParseFullIteratorExpression(string strExpression)
         {
-            FullExpressionWithIterator expression;
+            FullIteratorExpression expression;
 
             if (string.IsNullOrEmpty(strExpression))
                 throw new ArgumentException("Expression cannot be null");
@@ -66,48 +66,58 @@ namespace GameTheory.UI.Parser
             if (parts.Length != 2)
                 throw new ArgumentException("Iterations must have 2 parts");
 
-            expression = new FullExpressionWithIterator(ParseExpressionWithIterator(parts[0]));
+            var expPart = parts[0];
+            var rangePart = parts[1];
 
-            var iterator = parts[1];
-            var iteratorRange = iterator.SubstringAfter(IteratorStartSymbol);
-            var iteratorParts = iteratorRange.Split(IteratorRangeSymbol);
-            if (iteratorParts.Length != 2)
+            if (!rangePart.StartsWith(string.Format("{0}{1}", IteratorSymbol, IteratorStartSymbol)))
+                throw new ArgumentException("Range part must start with iterator declaration");
+
+            var range = rangePart.SubstringAfter(IteratorStartSymbol);
+            var rangeParts = range.Split(IteratorRangeSymbol);
+            if (rangeParts.Length != 2)
                 throw new ArgumentException("iterator range must have exactly 2 parts");
 
-            var iteratorLeft = iteratorParts[0];
-            var iteratorRight = iteratorParts[1];
+            var left = rangeParts[0];
+            var right = rangeParts[1];
 
-            expression.IterateFrom = ParseSimpleExpression(iteratorLeft);
-            expression.IterateTo = ParseSimpleExpression(iteratorRight);
+            var iterateFrom = ParseSimpleExpression(left);
+            var iterateTo = ParseSimpleExpression(right);
 
-            return expression;
+            var subExpression = ParseIteratorExpression(expPart);
 
+            return new FullIteratorExpression(subExpression, iterateFrom, iterateTo);
         }
 
-        public static ExpressionWithIterator ParseExpressionWithIterator(string expression)
+        public static IteratorExpression ParseIteratorExpression(string expression)
         {
             if (string.IsNullOrEmpty(expression))
                 throw new ArgumentException("expression cannot be null");
 
-            var exp = new ExpressionWithIterator();
+            bool hasVariable;
+            Operation opOnIterator;
+
             if (expression.Contains(VariableSymbol))
             {
-                exp.HasVariable = true;
+                hasVariable = true;
 
                 expression = expression.SubstringAfter(VariableSymbol);
 
                 var operation = OperationHelper.ParseOperation(expression[0]);
-                exp.OperationOnIterator = operation;
+                opOnIterator = operation;
 
-                expression = expression.Substring(1); // assuming operation takes 1 char
+                expression = expression.Substring(operation.Show().Length);
+            }
+            else
+            {
+                hasVariable = false;
+                opOnIterator = Operation.None;
             }
 
-            var exp2 = ParseSimpleExpression(expression, IteratorSymbol);
+            var subeExpression = ParseSimpleExpression(expression, IteratorSymbol);
 
-            exp.Operation = exp2.Operation;
-            exp.Argument = exp2.Argument;
-
-            return exp;
+            return subeExpression.HasArgument
+                ? new IteratorExpression(hasVariable, opOnIterator, subeExpression.Operation, subeExpression.Argument)
+                : new IteratorExpression(hasVariable, opOnIterator);
         }
 
         public static SimpleExpression ParseSimpleExpression(string expression, char variableSymbol = VariableSymbol)
@@ -115,35 +125,38 @@ namespace GameTheory.UI.Parser
             if (string.IsNullOrEmpty(expression))
                 throw new ArgumentException("expression cannot be null");
 
-            var exp = new SimpleExpression();
+
+            bool hasVariable = false, hasArgument = true;
+            Operation op = Operation.None;
+
             if (expression.Contains(variableSymbol))
             {
-                exp.HasVariable = true;
+                hasVariable = true;
 
                 expression = expression.SubstringAfter(variableSymbol);
 
                 if (expression.IsEmpty())
                 {
-                    exp.HasArgument = false;
-                    return exp;
+                    hasArgument = false;
                 }
+                else
+                {
+                    var operation = OperationHelper.ParseOperation(expression[0]);
+                    op = operation;
 
-
-                var operation = OperationHelper.ParseOperation(expression[0]);
-                exp.Operation = operation;
-
-                expression = expression.Substring(1); // assuming operatoin takes 1 char
+                    expression = expression.Substring(op.Show().Length); // assuming operatoin takes 1 char
+                }
             }
 
-            int value;
-            if (!int.TryParse(expression, out value))
+            if (!hasArgument)
+                return SimpleExpression.VariableOnly();
+
+            int arg;
+            if (!int.TryParse(expression, out arg))
                 throw new ArgumentException("couldn't parse value: " + expression);
 
-            exp.Argument = value;
+            return hasVariable ? new SimpleExpression(op, arg) : new SimpleExpression(arg);
 
-            return exp;
         }
     }
-
-    public enum Operation { None = 0, Plus, Minus }
 }

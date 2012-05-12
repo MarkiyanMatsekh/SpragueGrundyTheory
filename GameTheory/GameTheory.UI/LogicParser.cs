@@ -19,14 +19,14 @@ namespace GameTheory.UI
         public const char MinusSymbol = '-';
 
 
-        public static void Parse(string text)
+        public static List<ExpressionBase> Parse(string text)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentNullException("text");
 
             var transitions = text.Split(TransitionsSeparator);
 
-            var transitionsList = new List<int?>();
+            var transitionsList = new List<ExpressionBase>();
 
             foreach (var transtitionStr in transitions)
             {
@@ -35,19 +35,20 @@ namespace GameTheory.UI
                     transitionsList.Add(transition);
             }
 
+            return transitionsList;
         }
 
-        private static int? ParseTransition(string transtition)
+        private static ExpressionBase ParseTransition(string transtition)
         {
             if (string.IsNullOrEmpty(transtition))
                 return null;
+
+            ExpressionBase exp;
 
             var trimmed = transtition.Replace(" ", string.Empty); // remove spaces
 
             if (trimmed.Contains(IteratorSymbol))
             {
-                ExpressionWithIterator exp = new ExpressionWithIterator();
-
                 var parts = trimmed.Split(PartsSeparator);
                 if (parts.Length != 2)
                     throw new ArgumentException("Iterations must have 2 parts");
@@ -66,16 +67,13 @@ namespace GameTheory.UI
                 var iteratorFrom = ParseSimpleExpression(iteratorLeft);
                 var iteratorTo = ParseSimpleExpression(iteratorRight);
 
-
-                // usage
-                exp.Evaluate(100, iteratorFrom, iteratorTo);
             }
             else
             {
-                SimpleExpression exp = ParseSimpleExpression(trimmed);
+                exp = ParseSimpleExpression(trimmed);
             }
 
-            return null;
+            return exp;
 
         }
 

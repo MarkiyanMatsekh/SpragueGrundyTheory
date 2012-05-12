@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gViewer = new Microsoft.Glee.GraphViewerGdi.GViewer();
             this.msMainMenu = new System.Windows.Forms.MenuStrip();
             this.pnlInputParams = new System.Windows.Forms.Panel();
             this.tbGameParam = new System.Windows.Forms.TextBox();
@@ -39,25 +38,6 @@
             this.pnlInputParams.SuspendLayout();
             this.pnlInputLogic.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // gViewer
-            // 
-            this.gViewer.AsyncLayout = false;
-            this.gViewer.AutoScroll = true;
-            this.gViewer.BackwardEnabled = false;
-            this.gViewer.ForwardEnabled = false;
-            this.gViewer.Graph = null;
-            this.gViewer.Location = new System.Drawing.Point(200, 0);
-            this.gViewer.MouseHitDistance = 0.05D;
-            this.gViewer.Name = "gViewer";
-            this.gViewer.NavigationVisible = true;
-            this.gViewer.PanButtonPressed = false;
-            this.gViewer.SaveButtonVisible = true;
-            this.gViewer.Size = new System.Drawing.Size(997, 479);
-            this.gViewer.TabIndex = 3;
-            this.gViewer.ZoomF = 1D;
-            this.gViewer.ZoomFraction = 0.5D;
-            this.gViewer.ZoomWindowThreshold = 0.05D;
             // 
             // msMainMenu
             // 
@@ -100,7 +80,7 @@
             this.pnlInputLogic.Name = "pnlInputLogic";
             this.pnlInputLogic.Size = new System.Drawing.Size(237, 200);
             this.pnlInputLogic.TabIndex = 2;
-            // 
+            // S
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(22, 52);
@@ -140,7 +120,7 @@
 
         #endregion
 
-        private Microsoft.Glee.GraphViewerGdi.GViewer gViewer;
+        //private Microsoft.Glee.GraphViewerGdi.GViewer gViewer;
         private System.Windows.Forms.MenuStrip msMainMenu;
         private System.Windows.Forms.Panel pnlInputParams;
         private System.Windows.Forms.TextBox tbGameParam;

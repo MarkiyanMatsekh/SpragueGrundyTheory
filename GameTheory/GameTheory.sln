@@ -5,20 +5,38 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTheory.SpragueGrundy", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTheory.UI", "GameTheory.UI\GameTheory.UI.csproj", "{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTheory.Tests", "GameTheory.Tests\GameTheory.Tests.csproj", "{154E4D09-620D-4B31-95DD-B380588BD398}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D30BB148-B69F-464E-A803-196E58BD8314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D30BB148-B69F-464E-A803-196E58BD8314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D30BB148-B69F-464E-A803-196E58BD8314}.Debug|x86.ActiveCfg = Debug|x86
 		{D30BB148-B69F-464E-A803-196E58BD8314}.Debug|x86.Build.0 = Debug|x86
+		{D30BB148-B69F-464E-A803-196E58BD8314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D30BB148-B69F-464E-A803-196E58BD8314}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D30BB148-B69F-464E-A803-196E58BD8314}.Release|x86.ActiveCfg = Release|x86
 		{D30BB148-B69F-464E-A803-196E58BD8314}.Release|x86.Build.0 = Release|x86
+		{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}.Debug|x86.ActiveCfg = Debug|x86
 		{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}.Debug|x86.Build.0 = Debug|x86
+		{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}.Release|x86.ActiveCfg = Release|x86
 		{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}.Release|x86.Build.0 = Release|x86
+		{154E4D09-620D-4B31-95DD-B380588BD398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154E4D09-620D-4B31-95DD-B380588BD398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154E4D09-620D-4B31-95DD-B380588BD398}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{154E4D09-620D-4B31-95DD-B380588BD398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154E4D09-620D-4B31-95DD-B380588BD398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154E4D09-620D-4B31-95DD-B380588BD398}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

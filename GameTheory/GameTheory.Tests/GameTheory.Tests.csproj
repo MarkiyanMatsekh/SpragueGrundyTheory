@@ -2,20 +2,20 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D30BB148-B69F-464E-A803-196E58BD8314}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{154E4D09-620D-4B31-95DD-B380588BD398}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameTheory.SpragueGrundy</RootNamespace>
-    <AssemblyName>GameTheory.SpragueGrundy</AssemblyName>
+    <RootNamespace>GameTheory.Tests</RootNamespace>
+    <AssemblyName>GameTheory.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,22 +24,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Debug\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,22 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Games\ChompGame.cs" />
-    <Compile Include="Games\DawsonsChessGame.cs" />
-    <Compile Include="Games\DawsonsChessSlimGame.cs" />
-    <Compile Include="Games\SpragueGrundyGameBase.cs" />
-    <Compile Include="Games\KaylesGame.cs" />
-    <Compile Include="Games\LaskersNimGame.cs" />
-    <Compile Include="Games\QueenGame.cs" />
-    <Compile Include="Games\SubstractionGame.cs" />
-    <Compile Include="Games\WhiteKnightGame.cs" />
-    <Compile Include="Helpers\Extentions.cs" />
-    <Compile Include="Maths\Algorythm.cs" />
-    <Compile Include="Maths\XorEquation.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="GameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Results\Player.cs" />
-    <Compile Include="Results\ResultPredictor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameTheory.UI\GameTheory.UI.csproj">
+      <Project>{FB95E5A8-AB9A-4E2F-8C2A-662B2C96A773}</Project>
+      <Name>GameTheory.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

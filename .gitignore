@@ -9,3 +9,5 @@ bin
 obj
 *.suo
 *.user
+GameTheory.sln.DotSettings.user
+packages

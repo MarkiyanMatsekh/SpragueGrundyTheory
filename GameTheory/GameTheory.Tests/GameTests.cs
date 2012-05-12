@@ -156,7 +156,7 @@ namespace GameTheory.Tests
         public void WithSimpleRange()
         {
             var exp = "n-i+3,i=1..2";
-            var res = LogicParser.ParseExpressionWithIterator(exp);
+            var res = LogicParser.ParseFullExpressionWithIterator(exp);
             var expected = new FullExpressionWithIterator
             {
                 HasVariable = true,
@@ -184,7 +184,7 @@ namespace GameTheory.Tests
         public void WithVariableInRightPartOfRange()
         {
             var exp = "n-i+3,i=1..n";
-            var res = LogicParser.ParseExpressionWithIterator(exp);
+            var res = LogicParser.ParseFullExpressionWithIterator(exp);
             var expected = new FullExpressionWithIterator
             {
                 HasVariable = true,
@@ -211,7 +211,7 @@ namespace GameTheory.Tests
         public void WithExpressionInRightPartOfRange()
         {
             var exp = "n-i+3,i=1..n-2";
-            var res = LogicParser.ParseExpressionWithIterator(exp);
+            var res = LogicParser.ParseFullExpressionWithIterator(exp);
             var expected = new FullExpressionWithIterator
                                {
                                    HasVariable = true,
@@ -238,7 +238,7 @@ namespace GameTheory.Tests
         public void WithExpressionInBothPartsOfRange()
         {
             var exp = "n-i+3,i=n-3..n-1";
-            var res = LogicParser.ParseExpressionWithIterator(exp);
+            var res = LogicParser.ParseFullExpressionWithIterator(exp);
             var expected = new FullExpressionWithIterator
             {
                 HasVariable = true,
@@ -267,7 +267,6 @@ namespace GameTheory.Tests
     [TestFixture]
     public class ParserShouldNot
     {
-
         [Test, ExpectedException(typeof(ArgumentException))]
         public void NotParseEquationWithIteratorWithoutFirstPart()
         {
@@ -282,5 +281,11 @@ namespace GameTheory.Tests
             LogicParser.ParseSingleTransition(exp);
         }
 
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void NotParseSomeShit()
+        {
+            var exp = "some shit";
+            LogicParser.ParseSingleTransition(exp);
+        }
     }
 }

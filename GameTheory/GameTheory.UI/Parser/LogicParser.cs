@@ -70,7 +70,7 @@ namespace GameTheory.UI
 
             var iterator = parts[1];
             var iteratorRange = iterator.SubstringAfter(IteratorStartSymbol);
-            var iteratorParts = iteratorRange.Split(new string[] { IteratorRangeSymbol }, StringSplitOptions.RemoveEmptyEntries);
+            var iteratorParts = iteratorRange.Split(IteratorRangeSymbol);
             if (iteratorParts.Length != 2)
                 throw new ArgumentException("iterator range must have exactly 2 parts");
 
@@ -101,10 +101,6 @@ namespace GameTheory.UI
 
                 expression = expression.Substring(1); // assuming operation takes 1 char
             }
-            else
-            {
-                exp.OperationOnIterator = Operation.None; // may be deleted
-            }
 
             var exp2 = ParseSimpleExpression(expression, IteratorSymbol);
 
@@ -119,15 +115,19 @@ namespace GameTheory.UI
             if (string.IsNullOrEmpty(expression))
                 throw new ArgumentException("expression cannot be null");
 
-            //if (expression.Contains(IteratorSymbol))
-            //    throw new ArgumentException("expression containing iterator should parse in other way");
-
             var exp = new SimpleExpression();
             if (expression.Contains(variableSymbol))
             {
                 exp.HasVariable = true;
 
-                expression = expression.SubstringAfter(VariableSymbol);
+                expression = expression.SubstringAfter(variableSymbol);
+
+                if (expression.IsEmpty())
+                {
+                    exp.HasArgument = false;
+                    return exp;
+                }
+
 
                 var operation = OperationHelper.ParseOperation(expression[0]);
                 exp.Operation = operation;

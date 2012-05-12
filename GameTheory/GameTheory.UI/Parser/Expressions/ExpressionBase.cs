@@ -5,6 +5,7 @@ namespace GameTheory.UI
     public abstract class ExpressionBase : IEquatable<ExpressionBase>
     {
         public bool HasVariable;
+        public bool HasArgument = true;
         public Operation Operation;
         public int Argument;
 

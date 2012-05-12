@@ -12,7 +12,8 @@ namespace GameTheory.UI
         {
             this.Argument = exp.Argument;
             this.HasVariable = exp.HasVariable;
-            this.Operation = exp.OperationOnIterator;
+            this.HasArgument = exp.HasArgument;
+            this.Operation = exp.Operation;
             this.OperationOnIterator = exp.OperationOnIterator;
         }
 
@@ -56,6 +57,17 @@ namespace GameTheory.UI
                 result = (result*397) ^ IterateTo.GetHashCode();
                 return result;
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}{1}i{2}{3},{4}..{5}",
+                                 HasVariable ? "x" : string.Empty,
+                                 OperationOnIterator.Show(),
+                                 Operation.Show(),
+                                 HasArgument ? Argument.ToString() : string.Empty,
+                                 IterateFrom,
+                                 IterateTo);
         }
     }
 }

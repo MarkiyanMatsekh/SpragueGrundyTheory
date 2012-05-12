@@ -14,7 +14,7 @@ static internal class OperationHelper
                 return Operation.Minus;
                 break;
             default:
-                throw new InvalidOperationException("not supported operation");
+                throw new InvalidOperationException(string.Format("Cannot parse '{0}'. Not supported operation", op));
         }
     }
 
@@ -32,7 +32,7 @@ static internal class OperationHelper
                 return string.Empty;
                 break;
             default:
-                throw new InvalidOperationException("not supported operation");
+                throw new InvalidOperationException(string.Format("Can't show '{0}'. Not supported operation", op));
         }
     }
 }

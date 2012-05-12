@@ -1,38 +1,40 @@
 using System;
-using GameTheory.UI;
 
-static internal class OperationHelper
+namespace GameTheory.UI.Parser
 {
-    public static Operation ParseOperation(char op)
+    static internal class OperationHelper
     {
-        switch (op)
+        public static Operation ParseOperation(char op)
         {
-            case '+':
-                return Operation.Plus;
-                break;
-            case '-':
-                return Operation.Minus;
-                break;
-            default:
-                throw new InvalidOperationException(string.Format("Cannot parse '{0}'. Not supported operation", op));
+            switch (op)
+            {
+                case '+':
+                    return Operation.Plus;
+                    break;
+                case '-':
+                    return Operation.Minus;
+                    break;
+                default:
+                    throw new InvalidOperationException(string.Format("Cannot parse '{0}'. Not supported operation", op));
+            }
         }
-    }
 
-    public static string Show(this Operation op)
-    {
-        switch (op)
+        public static string Show(this Operation op)
         {
-            case Operation.Plus:
-                return "+";
-                break;
-            case Operation.Minus:
-                return "-";
-                break;
-            case Operation.None:
-                return string.Empty;
-                break;
-            default:
-                throw new InvalidOperationException(string.Format("Can't show '{0}'. Not supported operation", op));
+            switch (op)
+            {
+                case Operation.Plus:
+                    return "+";
+                    break;
+                case Operation.Minus:
+                    return "-";
+                    break;
+                case Operation.None:
+                    return string.Empty;
+                    break;
+                default:
+                    throw new InvalidOperationException(string.Format("Can't show '{0}'. Not supported operation", op));
+            }
         }
     }
 }

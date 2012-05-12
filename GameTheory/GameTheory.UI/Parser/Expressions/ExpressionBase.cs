@@ -1,6 +1,6 @@
 using System;
 
-namespace GameTheory.UI
+namespace GameTheory.UI.Parser.Expressions
 {
     public abstract class ExpressionBase : IEquatable<ExpressionBase>
     {

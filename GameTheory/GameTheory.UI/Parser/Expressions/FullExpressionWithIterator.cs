@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GameTheory.UI
+namespace GameTheory.UI.Parser.Expressions
 {
     public class FullExpressionWithIterator : ExpressionWithIterator, IEquatable<FullExpressionWithIterator>
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace GameTheory.UI
+namespace GameTheory.UI.Parser
 {
     public static class StringExtensions
     {

@@ -58,7 +58,7 @@
     <Compile Include="Parser\Expressions\ExpressionWithIterator.cs" />
     <Compile Include="Parser\Expressions\FullExpressionWithIterator.cs" />
     <Compile Include="Parser\Expressions\SimpleExpression.cs" />
-    <Compile Include="Parser\LogicParser.cs" />
+    <Compile Include="Parser\GameLogicParser.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -15,5 +15,10 @@ namespace GameTheory.UI
         {
             InitializeComponent();
         }
+
+        private void lblInputLogic_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

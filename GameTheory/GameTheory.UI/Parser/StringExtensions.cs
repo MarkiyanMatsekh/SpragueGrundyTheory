@@ -19,5 +19,15 @@ namespace GameTheory.UI.Parser
         {
             return str.Split(new[] {separator}, StringSplitOptions.RemoveEmptyEntries);
         }
+
+        public static string Str(this int o)
+        {
+            return o.ToString();
+        }
+
+        public static string Str(this uint o)
+        {
+            return o.ToString();
+        }
     }
 }

@@ -233,18 +233,11 @@ namespace GameTheory.Tests
     [TestFixture]
     public class EvaluatorShould
     {
-        [Test]
-        public void HandleNoneOperationProperly1()
+        [Test, ExpectedException(typeof(InvalidOperationException))]
+        public void CrashWhenEvaluatingNoneOperationOfTwoArguments()
         {
             var actual = EvaluatableExpression.EvaluateSimpleOperation(0, Operation.None, 1);
             Assert.That(1, Is.EqualTo(actual));
-        }
-
-        [Test]
-        public void HandleNoneOperationProperly2()
-        {
-            var actual = EvaluatableExpression.EvaluateSimpleOperation(1, Operation.None, 0);
-            Assert.That(0, Is.EqualTo(actual));
         }
     }
 }

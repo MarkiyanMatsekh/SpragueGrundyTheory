@@ -23,5 +23,10 @@ namespace GameTheory.UI.Parser.Expressions
                     throw new InvalidOperationException("currently only minus and plus operations are supported");
             }
         }
+
+        public static int EvaluateNoOperation(int arg)
+        {
+            return arg;
+        }
     }
 }

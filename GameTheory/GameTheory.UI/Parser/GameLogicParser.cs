@@ -45,11 +45,15 @@ namespace GameTheory.UI.Parser
 
             var trimmed = transtition.Replace(" ", string.Empty); // remove spaces
 
-            if (trimmed.Contains(IteratorSymbol))
-                exp = ParseFullIteratorExpression(trimmed);
+            if (trimmed.Contains(GameDelimiterSymbol))
+                exp = ParseGameSumExpression(trimmed);
             else
-                exp = ParseSimpleExpression(trimmed);
-
+            {
+                if (trimmed.Contains(IteratorSymbol))
+                    exp = ParseFullIteratorExpression(trimmed);
+                else
+                    exp = ParseSimpleExpression(trimmed);
+            }
             return exp;
 
         }
@@ -181,7 +185,7 @@ namespace GameTheory.UI.Parser
             var bodies = bodiesPart.Split(GameDelimiterSymbol);
             foreach (var body in bodies)
             {
-               itBodies.Add( ParseIteratorBodyExpression(body));
+                itBodies.Add(ParseIteratorBodyExpression(body));
             }
             var range = ParseIteratorRangeExpression(rangePart);
 

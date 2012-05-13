@@ -40,8 +40,12 @@ namespace GameTheory.UI.Parser.Expressions
 
         public override List<int> Evaluate(int n)
         {
-            int arg1 = HasVariable ? n : 0;
-            return new List<int> { EvaluateSimpleOperation(arg1, Operation, Argument) };
+            int value;
+            if (HasVariable)
+                value = EvaluateSimpleOperation(n, Operation, Argument);
+            else
+                value = EvaluateNoOperation(Argument);
+            return new List<int> { value };
         }
 
         #region Overrides

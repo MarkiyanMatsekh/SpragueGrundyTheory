@@ -29,6 +29,8 @@ namespace GameTheory.UI.Parser.Expressions
 
         public override List<int> Evaluate(int x)
         {
+
+            throw new NotImplementedException("look at full iterator expr");
             var result = new List<int>();
 
             int from = Range.From.Evaluate(x)[0],

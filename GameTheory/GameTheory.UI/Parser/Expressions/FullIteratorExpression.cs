@@ -30,8 +30,16 @@ namespace GameTheory.UI.Parser.Expressions
 
             for (int i = from; i <= to; i++)
             {
-                result.Add(EvaluateSimpleOperation(arg1, Body.OperationOnIterator,
-                    EvaluateSimpleOperation(i, Body.OperationOnArgument, Body.Argument)));
+                var help =
+                    Body.HasArgument
+                        ? EvaluateSimpleOperation(i, Body.OperationOnArgument, Body.Argument)
+                        : EvaluateNoOperation(i);
+                var main =
+                    Body.HasVariable
+                        ? EvaluateSimpleOperation(n, Body.OperationOnIterator, help)
+                        : EvaluateNoOperation(help);
+
+                result.Add(main);
             }
 
             return result;

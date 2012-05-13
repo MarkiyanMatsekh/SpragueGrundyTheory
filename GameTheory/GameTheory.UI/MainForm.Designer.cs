@@ -40,7 +40,14 @@ namespace GameTheory.UI
             this.tbGameLogic = new System.Windows.Forms.TextBox();
             this.lblInputLogic = new System.Windows.Forms.Label();
             this.gViewer = new Microsoft.Glee.GraphViewerGdi.GViewer();
+            this.dgvResults = new System.Windows.Forms.DataGridView();
+            this.clmnIterator = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmnGrundyValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSubstractionGame = new System.Windows.Forms.Button();
+            this.btnDawsonsChessGame = new System.Windows.Forms.Button();
+            this.btnKaylesGame = new System.Windows.Forms.Button();
             this.pnlInputLogic.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.SuspendLayout();
             // 
             // msMainMenu
@@ -53,7 +60,12 @@ namespace GameTheory.UI
             // 
             // pnlInputLogic
             // 
+            this.pnlInputLogic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlInputLogic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlInputLogic.Controls.Add(this.btnKaylesGame);
+            this.pnlInputLogic.Controls.Add(this.btnDawsonsChessGame);
+            this.pnlInputLogic.Controls.Add(this.btnSubstractionGame);
             this.pnlInputLogic.Controls.Add(this.lblResult);
             this.pnlInputLogic.Controls.Add(this.btnCalculate);
             this.pnlInputLogic.Controls.Add(this.lblInitialGameState);
@@ -62,13 +74,14 @@ namespace GameTheory.UI
             this.pnlInputLogic.Controls.Add(this.lblInputLogic);
             this.pnlInputLogic.Location = new System.Drawing.Point(12, 27);
             this.pnlInputLogic.Name = "pnlInputLogic";
-            this.pnlInputLogic.Size = new System.Drawing.Size(176, 200);
+            this.pnlInputLogic.Size = new System.Drawing.Size(176, 399);
             this.pnlInputLogic.TabIndex = 2;
             // 
             // lblResult
             // 
+            this.lblResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblResult.AutoSize = true;
-            this.lblResult.Location = new System.Drawing.Point(3, 149);
+            this.lblResult.Location = new System.Drawing.Point(3, 374);
             this.lblResult.Name = "lblResult";
             this.lblResult.Size = new System.Drawing.Size(67, 13);
             this.lblResult.TabIndex = 5;
@@ -76,7 +89,8 @@ namespace GameTheory.UI
             // 
             // btnCalculate
             // 
-            this.btnCalculate.Location = new System.Drawing.Point(6, 110);
+            this.btnCalculate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCalculate.Location = new System.Drawing.Point(6, 335);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(160, 23);
             this.btnCalculate.TabIndex = 4;
@@ -86,8 +100,9 @@ namespace GameTheory.UI
             // 
             // lblInitialGameState
             // 
+            this.lblInitialGameState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblInitialGameState.AutoSize = true;
-            this.lblInitialGameState.Location = new System.Drawing.Point(3, 68);
+            this.lblInitialGameState.Location = new System.Drawing.Point(3, 293);
             this.lblInitialGameState.Name = "lblInitialGameState";
             this.lblInitialGameState.Size = new System.Drawing.Size(167, 13);
             this.lblInitialGameState.TabIndex = 3;
@@ -95,7 +110,8 @@ namespace GameTheory.UI
             // 
             // tbInputN
             // 
-            this.tbInputN.Location = new System.Drawing.Point(6, 84);
+            this.tbInputN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbInputN.Location = new System.Drawing.Point(6, 309);
             this.tbInputN.Name = "tbInputN";
             this.tbInputN.Size = new System.Drawing.Size(160, 20);
             this.tbInputN.TabIndex = 2;
@@ -108,6 +124,7 @@ namespace GameTheory.UI
             this.tbGameLogic.Name = "tbGameLogic";
             this.tbGameLogic.Size = new System.Drawing.Size(160, 20);
             this.tbGameLogic.TabIndex = 1;
+            this.tbGameLogic.Text = "n-i, i=1..3";
             this.tbGameLogic.WordWrap = false;
             // 
             // lblInputLogic
@@ -117,7 +134,7 @@ namespace GameTheory.UI
             this.lblInputLogic.Name = "lblInputLogic";
             this.lblInputLogic.Size = new System.Drawing.Size(163, 13);
             this.lblInputLogic.TabIndex = 0;
-            this.lblInputLogic.Text = "Задайте переходи дял стану n:";
+            this.lblInputLogic.Text = "Задайте переходи для стану n:";
             // 
             // gViewer
             // 
@@ -130,33 +147,96 @@ namespace GameTheory.UI
             this.gViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gViewer.ForwardEnabled = false;
             this.gViewer.Graph = null;
-            this.gViewer.Location = new System.Drawing.Point(194, 27);
+            this.gViewer.Location = new System.Drawing.Point(324, 27);
             this.gViewer.MouseHitDistance = 0.05D;
             this.gViewer.Name = "gViewer";
             this.gViewer.NavigationVisible = true;
             this.gViewer.PanButtonPressed = false;
             this.gViewer.SaveButtonVisible = true;
-            this.gViewer.Size = new System.Drawing.Size(822, 399);
+            this.gViewer.Size = new System.Drawing.Size(692, 399);
             this.gViewer.TabIndex = 3;
             this.gViewer.ZoomF = 1D;
             this.gViewer.ZoomFraction = 0.5D;
             this.gViewer.ZoomWindowThreshold = 0.05D;
             this.gViewer.SelectionChanged += new System.EventHandler(this.gViewer_SelectionChanged);
             // 
+            // dgvResults
+            // 
+            this.dgvResults.AllowUserToAddRows = false;
+            this.dgvResults.AllowUserToDeleteRows = false;
+            this.dgvResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResults.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmnIterator,
+            this.clmnGrundyValue});
+            this.dgvResults.Location = new System.Drawing.Point(194, 27);
+            this.dgvResults.Name = "dgvResults";
+            this.dgvResults.ReadOnly = true;
+            this.dgvResults.RowHeadersVisible = false;
+            this.dgvResults.Size = new System.Drawing.Size(124, 399);
+            this.dgvResults.TabIndex = 4;
+            // 
+            // clmnIterator
+            // 
+            this.clmnIterator.Frozen = true;
+            this.clmnIterator.HeaderText = "i";
+            this.clmnIterator.Name = "clmnIterator";
+            this.clmnIterator.ReadOnly = true;
+            this.clmnIterator.Width = 20;
+            // 
+            // clmnGrundyValue
+            // 
+            this.clmnGrundyValue.Frozen = true;
+            this.clmnGrundyValue.HeaderText = "Значення Шпрага-Гранді";
+            this.clmnGrundyValue.Name = "clmnGrundyValue";
+            this.clmnGrundyValue.ReadOnly = true;
+            // 
+            // btnSubstractionGame
+            // 
+            this.btnSubstractionGame.Location = new System.Drawing.Point(6, 62);
+            this.btnSubstractionGame.Name = "btnSubstractionGame";
+            this.btnSubstractionGame.Size = new System.Drawing.Size(160, 23);
+            this.btnSubstractionGame.TabIndex = 6;
+            this.btnSubstractionGame.Text = "гра \"Віднімашки\"";
+            this.btnSubstractionGame.UseVisualStyleBackColor = true;
+            this.btnSubstractionGame.Click += new System.EventHandler(this.btnSubstractionGame_Click);
+            // 
+            // btnDawsonsChessGame
+            // 
+            this.btnDawsonsChessGame.Location = new System.Drawing.Point(6, 120);
+            this.btnDawsonsChessGame.Name = "btnDawsonsChessGame";
+            this.btnDawsonsChessGame.Size = new System.Drawing.Size(160, 23);
+            this.btnDawsonsChessGame.TabIndex = 7;
+            this.btnDawsonsChessGame.Text = "гра \"Шахи Доусона\"";
+            this.btnDawsonsChessGame.UseVisualStyleBackColor = true;
+            this.btnDawsonsChessGame.Click += new System.EventHandler(this.btnDawsonsChessGame_Click);
+            // 
+            // btnKaylesGame
+            // 
+            this.btnKaylesGame.Location = new System.Drawing.Point(6, 91);
+            this.btnKaylesGame.Name = "btnKaylesGame";
+            this.btnKaylesGame.Size = new System.Drawing.Size(160, 23);
+            this.btnKaylesGame.TabIndex = 8;
+            this.btnKaylesGame.Text = "гра \"Кеглі\"";
+            this.btnKaylesGame.UseVisualStyleBackColor = true;
+            this.btnKaylesGame.Click += new System.EventHandler(this.btnKaylesGame_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 438);
+            this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.gViewer);
             this.Controls.Add(this.pnlInputLogic);
             this.Controls.Add(this.msMainMenu);
             this.MainMenuStrip = this.msMainMenu;
             this.Name = "MainForm";
             this.Text = "Функція Шпрага-Гранді";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.pnlInputLogic.ResumeLayout(false);
             this.pnlInputLogic.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,6 +253,12 @@ namespace GameTheory.UI
         private System.Windows.Forms.Label lblInitialGameState;
         private System.Windows.Forms.TextBox tbInputN;
         private System.Windows.Forms.Label lblResult;
+        private DataGridView dgvResults;
+        private DataGridViewTextBoxColumn clmnIterator;
+        private DataGridViewTextBoxColumn clmnGrundyValue;
+        private Button btnKaylesGame;
+        private Button btnDawsonsChessGame;
+        private Button btnSubstractionGame;
     }
 }
 

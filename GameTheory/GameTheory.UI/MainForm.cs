@@ -29,12 +29,11 @@ namespace GameTheory.UI
                 var n = int.Parse(tbInputN.Text);
 
                 Graph g = solver.GetTransitionsGraph(n);
+                var list = CalculateSpragueGrundyUpTo(n, solver);
 
+                UpdateGrid(list);
                 lblResult.Text = solver.SGValue(n).Str();
-
                 gViewer.Graph = g;
-                //gViewer.Invalidate();
-
             }
             catch (ArgumentException ex)
             {
@@ -46,13 +45,31 @@ namespace GameTheory.UI
             }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void UpdateGrid(List<uint> results)
         {
-            var exp1 = "i&n-i-1,i=0..n-1";
-            var exp2 = "n-1;n-2;n-3";
-            var exp3 = "n-i,i=1..3";
-            var exp4 = "n-i-1,i=0..n-1";
-            tbGameLogic.Text = exp1;
+            dgvResults.Rows.Clear();
+
+            dgvResults.Rows.Add(results.Count);
+
+            for (int i = 0; i < results.Count; i++)
+            {
+                dgvResults[0, i].Value = i;
+                dgvResults[1, i].Value = results[i];
+            }
+
+        }
+
+        private List<uint> CalculateSpragueGrundyUpTo(int key, GenericGrundyGame game)
+        {
+            var list = new List<uint>();
+
+            for (int i = 0; i <= key; i++)
+            {
+                var value = game.SGValue(i);
+                list.Add(value);
+            }
+
+            return list;
         }
 
         object selectedObject;
@@ -104,6 +121,25 @@ namespace GameTheory.UI
                 }
             }
             gViewer.Invalidate();
+        }
+
+        private void btnDawsonsChessGame_Click(object sender, EventArgs e)
+        {
+            var game = "n-2; i-2 & n-i-1, i=2..n-1";
+            tbGameLogic.Text = game;
+        }
+
+        private void btnSubstractionGame_Click(object sender, EventArgs e)
+        {
+            var substractions = "n-i, i=1..3";
+            tbGameLogic.Text = substractions;
+        }
+
+        private void btnKaylesGame_Click(object sender, EventArgs e)
+        {
+            var kayles = "i & n-i-1, i=0..n-1; i & n-i-2, i=0..n-2;";
+            tbGameLogic.Text = kayles;
+
         }
     }
 }

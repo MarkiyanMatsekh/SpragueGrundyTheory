@@ -49,9 +49,9 @@ namespace GameTheory.UI.Parser.Expressions
             return result;
         }
 
-        public List<List<int>> EvaluateWithoutMerging(int n)
+        public HashSet<List<int>> EvaluateWithoutMerging(int n)
         {
-            var result = new List<List<int>>();
+            var result = new HashSet<List<int>>();
 
             int from = Range.From.Evaluate(n)[0],
                 to = Range.To.Evaluate(n)[0];

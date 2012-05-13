@@ -22,27 +22,73 @@ namespace GameTheory.SpragueGrundy.Games
         protected override bool TryStopRecursion(int key, out uint value)
         {
             value = 0;
-            return TryStopRecursion(key);
+            if (key == 0)
+            {
+                value = 0;
+                return true;
+            }
+            if (key == 1)
+            {
+                value = 1;
+                return true;
+            }
+
+            return false;
         }
 
-        private static bool TryStopRecursion(int key)
+        public HashSet<List<int>> GetStateTransitionExtended(int key)
         {
-            return key < 0;
-        }
-
-        public override HashSet<int> GetStateTransitions(int key)
-        {
-            var res = new HashSet<int>();
+            var set = new HashSet<List<int>>();
 
             foreach (var transition in _transitions)
             {
-                var states = transition.Evaluate(key);
-                foreach (var state in states)
-                    res.Add(state);
+                var gamesSum = transition as GameSumExpression;
+                if (gamesSum == null)
+                {
+                    var states = transition.Evaluate(key);
+                    foreach (var state in states)
+                        set.Add(new List<int> { state });
+                }
+                else
+                {
+                    var states = gamesSum.EvaluateWithoutMerging(key);
+                    foreach (var state in states)
+                        set.Add(state);
+                }
             }
 
-            return res;
+            return set;
         }
+
+        private readonly HashSet<AntiRepeaterItem> _antiRepeaterForCalc = new HashSet<AntiRepeaterItem>();
+        protected override HashSet<uint> GetSGValuesForTransitions(int key)
+        {
+            var set = new HashSet<uint>();
+
+            var transitions = GetStateTransitionExtended(key);
+            foreach (var transition in transitions)
+            {
+               // if (_antiRepeaterForCalc.Contains(new AntiRepeaterItem(key, transition)))
+               //     continue;
+
+                uint nimsum = 0;
+                foreach (var game in transition)
+                {
+                    uint value;
+                    if (TryStopRecursion(game, out value))
+                        nimsum ^= value;
+                    else
+                        nimsum ^= SGValue(game);
+                }
+                set.Add(nimsum);
+
+             //   _antiRepeaterForCalc.Add(new AntiRepeaterItem(key, transition));
+            }
+
+            return set;
+        }
+
+        #region Graph
 
         public Graph GetTransitionsGraph(int key)
         {
@@ -77,8 +123,8 @@ namespace GameTheory.SpragueGrundy.Games
                         var sharedColor = GetRandomColor();
                         foreach (var game in sum)
                         {
-                            
-                            if (TryStopRecursion(game))
+
+                            if (TryStopRecursionForGraph(game))
                                 continue;
                             GetTransitionsForKey(game, ref g);
                             AddEdge(key, game, g, sharedColor);
@@ -91,7 +137,7 @@ namespace GameTheory.SpragueGrundy.Games
                     var states = transition.Evaluate(key);
                     foreach (var state in states)
                     {
-                        if (TryStopRecursion(state))
+                        if (TryStopRecursionForGraph(state))
                             continue;
                         GetTransitionsForKey(state, ref g);
                         AddEdge(key, state, g);
@@ -99,6 +145,11 @@ namespace GameTheory.SpragueGrundy.Games
                 }
 
             }
+        }
+
+        private static bool TryStopRecursionForGraph(int key)
+        {
+            return key < 0;
         }
 
         private static void AddNode(int key, Graph g)
@@ -133,17 +184,6 @@ namespace GameTheory.SpragueGrundy.Games
             return (byte)(rand.Next(upper));
         }
 
-        protected override HashSet<uint> GetSGValuesForTransitions(int key)
-        {
-            var set = new HashSet<uint>();
-
-            var transitions = GetStateTransitions(key);
-            foreach (var transition in transitions)
-            {
-                set.Add(SGValue(transition));
-            }
-
-            return set;
-        }
+        #endregion
     }
 }

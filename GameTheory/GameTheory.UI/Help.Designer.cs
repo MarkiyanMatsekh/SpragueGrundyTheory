@@ -30,10 +30,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Help));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.okButton = new System.Windows.Forms.Button();
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.okButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -72,16 +72,40 @@
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
             // 
+            // labelProductName
+            // 
+            this.labelProductName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProductName.Location = new System.Drawing.Point(176, 0);
+            this.labelProductName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
+            this.labelProductName.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelProductName.Name = "labelProductName";
+            this.labelProductName.Size = new System.Drawing.Size(598, 17);
+            this.labelProductName.TabIndex = 19;
+            this.labelProductName.Text = "Розв\'язування Рівноправних ігор";
+            this.labelProductName.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // labelVersion
+            // 
+            this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelVersion.Location = new System.Drawing.Point(176, 39);
+            this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
+            this.labelVersion.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(598, 17);
+            this.labelVersion.TabIndex = 0;
+            this.labelVersion.Text = "Розроблено Мацехом Маркіяном";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
             // textBoxDescription
             // 
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxDescription.Location = new System.Drawing.Point(177, 159);
+            this.textBoxDescription.Location = new System.Drawing.Point(176, 159);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDescription.Size = new System.Drawing.Size(597, 191);
+            this.textBoxDescription.Size = new System.Drawing.Size(598, 191);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
@@ -95,30 +119,6 @@
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 24;
             this.okButton.Text = "&OK";
-            // 
-            // labelProductName
-            // 
-            this.labelProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProductName.Location = new System.Drawing.Point(177, 0);
-            this.labelProductName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelProductName.MaximumSize = new System.Drawing.Size(0, 17);
-            this.labelProductName.Name = "labelProductName";
-            this.labelProductName.Size = new System.Drawing.Size(597, 17);
-            this.labelProductName.TabIndex = 19;
-            this.labelProductName.Text = "Розвязування Рівноправних ігор";
-            this.labelProductName.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // labelVersion
-            // 
-            this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelVersion.Location = new System.Drawing.Point(177, 39);
-            this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelVersion.MaximumSize = new System.Drawing.Size(0, 17);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(597, 17);
-            this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "Розроблено Мацех Маркіяном";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // Help
             // 

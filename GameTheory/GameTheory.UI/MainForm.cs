@@ -19,7 +19,7 @@ namespace GameTheory.UI
             InitializeComponent();
         }
 
-        private void btnCalculate_Click(object sender, EventArgs e)
+        public void Calculate()
         {
             try
             {
@@ -27,13 +27,16 @@ namespace GameTheory.UI
                 var transitions = GameLogicParser.ParseMultipleTransitions(gameLogic);
                 var solver = new GenericGrundyGame(transitions);
                 var n = int.Parse(tbInputN.Text);
-
-                Graph g = solver.GetTransitionsGraph(n);
                 var list = CalculateSpragueGrundyUpTo(n, solver);
 
                 UpdateGrid(list);
                 lblResult.Text = solver.SGValue(n) > 0 ? "Виграшна ситуація" : "Програшна ситуація";
-                gViewer.Graph = g;
+                
+                if (!AvoidRepaintingGraph)
+                {
+                    Graph g = solver.GetTransitionsGraph(n);
+                    gViewer.Graph = g;
+                }
             }
             catch (ArgumentException ex)
             {
@@ -43,6 +46,11 @@ namespace GameTheory.UI
             {
                 MessageBox.Show("Сталася невідома помилка: " + ex.Message);
             }
+        }
+
+        private void btnCalculate_Click(object sender, EventArgs e)
+        {
+            Calculate();
         }
 
         private void UpdateGrid(List<uint> results)
@@ -85,7 +93,13 @@ namespace GameTheory.UI
                 {
                     var node1 = selectedObject as Node;
                     if (node1 != null)
+                    {
                         node1.Attr = selectedObjectAttr as NodeAttr;
+                        foreach (var incidentEdge in gViewer.Graph.Edges.Where(edge2 => edge2.Source == node1.Id))
+                        {
+                            incidentEdge.Attr.LineWidth /= 2;
+                        }
+                    }
                 }
                 selectedObject = null;
             }
@@ -118,6 +132,12 @@ namespace GameTheory.UI
                         node.Attr.Fontcolor = Microsoft.Glee.Drawing.Color.Magenta;
                     }
                     node.Attr.LineWidth *= 2;
+
+                    foreach (var incidentEdge in gViewer.Graph.Edges.Where(edge1 => edge1.Source == node.Id))
+                    {
+                        incidentEdge.Attr.LineWidth *= 2;
+                    }
+
                 }
             }
             gViewer.Invalidate();
@@ -125,21 +145,20 @@ namespace GameTheory.UI
 
         private void btnDawsonsChessGame_Click(object sender, EventArgs e)
         {
-            var game = "n-2; i-2 & n-i-1, i=2..n-1";
-            tbGameLogic.Text = game;
+            tbGameLogic.Text = "n-2; i-2 & n-i-1, i=2..n-1";
+            Calculate();
         }
 
         private void btnSubstractionGame_Click(object sender, EventArgs e)
         {
-            var substractions = "n-i, i=1..3";
-            tbGameLogic.Text = substractions;
+            tbGameLogic.Text = "n-i, i=1..3";
+            Calculate();
         }
 
         private void btnKaylesGame_Click(object sender, EventArgs e)
         {
-            var kayles = "i & n-i-1, i=0..n-1; i & n-i-2, i=0..n-2;";
-            tbGameLogic.Text = kayles;
-
+            tbGameLogic.Text = "i & n-i-1,i=0..n-1; i & n-i-2,i=0..n-2";
+            Calculate();
         }
 
         private void вийтиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -149,8 +168,19 @@ namespace GameTheory.UI
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form= new Help();
+            var form = new Help();
             form.ShowDialog();
+        }
+
+        private void cbAvoidRepaintingGraph_CheckedChanged(object sender, EventArgs e)
+        {
+            this.AvoidRepaintingGraph = cbAvoidRepaintingGraph.Checked;
+        }
+
+        protected bool AvoidRepaintingGraph
+        {
+            get;
+            private set;
         }
     }
 }

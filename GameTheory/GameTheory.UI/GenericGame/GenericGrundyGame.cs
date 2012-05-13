@@ -153,11 +153,13 @@ namespace GameTheory.SpragueGrundy.Games
             n.Attr.LineWidth = 2;
             n.Attr.Fontsize = 15;
             n.Attr.Fillcolor = new Color(230, 230, 250);
+            n.Attr.Color = new Color(150,150,250);
         }
 
         private static Edge AddEdge(int from, int to, Graph g)
         {
             var edge = g.AddEdge(from.Str(), to.Str());
+            edge.Attr.LineWidth = 1;
             return edge;
         }
 

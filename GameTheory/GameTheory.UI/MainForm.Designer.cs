@@ -50,6 +50,7 @@ namespace GameTheory.UI
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbAvoidRepaintingGraph = new System.Windows.Forms.CheckBox();
             this.msMainMenu.SuspendLayout();
             this.pnlInputLogic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
@@ -62,7 +63,7 @@ namespace GameTheory.UI
             this.helpToolStripMenuItem});
             this.msMainMenu.Location = new System.Drawing.Point(0, 0);
             this.msMainMenu.Name = "msMainMenu";
-            this.msMainMenu.Size = new System.Drawing.Size(1028, 24);
+            this.msMainMenu.Size = new System.Drawing.Size(970, 24);
             this.msMainMenu.TabIndex = 0;
             this.msMainMenu.Text = "menuStrip1";
             // 
@@ -71,6 +72,7 @@ namespace GameTheory.UI
             this.pnlInputLogic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlInputLogic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlInputLogic.Controls.Add(this.cbAvoidRepaintingGraph);
             this.pnlInputLogic.Controls.Add(this.btnKaylesGame);
             this.pnlInputLogic.Controls.Add(this.btnDawsonsChessGame);
             this.pnlInputLogic.Controls.Add(this.btnSubstractionGame);
@@ -82,7 +84,7 @@ namespace GameTheory.UI
             this.pnlInputLogic.Controls.Add(this.lblInputLogic);
             this.pnlInputLogic.Location = new System.Drawing.Point(12, 27);
             this.pnlInputLogic.Name = "pnlInputLogic";
-            this.pnlInputLogic.Size = new System.Drawing.Size(176, 399);
+            this.pnlInputLogic.Size = new System.Drawing.Size(176, 407);
             this.pnlInputLogic.TabIndex = 2;
             // 
             // btnKaylesGame
@@ -119,15 +121,17 @@ namespace GameTheory.UI
             // 
             this.lblResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblResult.AutoSize = true;
-            this.lblResult.Location = new System.Drawing.Point(3, 374);
+            this.lblResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResult.Location = new System.Drawing.Point(3, 378);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(0, 13);
+            this.lblResult.Size = new System.Drawing.Size(99, 17);
             this.lblResult.TabIndex = 5;
+            this.lblResult.Text = "результат...";
             // 
             // btnCalculate
             // 
             this.btnCalculate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCalculate.Location = new System.Drawing.Point(6, 335);
+            this.btnCalculate.Location = new System.Drawing.Point(6, 329);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(160, 23);
             this.btnCalculate.TabIndex = 4;
@@ -139,7 +143,7 @@ namespace GameTheory.UI
             // 
             this.lblInitialGameState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblInitialGameState.AutoSize = true;
-            this.lblInitialGameState.Location = new System.Drawing.Point(3, 293);
+            this.lblInitialGameState.Location = new System.Drawing.Point(3, 287);
             this.lblInitialGameState.Name = "lblInitialGameState";
             this.lblInitialGameState.Size = new System.Drawing.Size(167, 13);
             this.lblInitialGameState.TabIndex = 3;
@@ -148,11 +152,11 @@ namespace GameTheory.UI
             // tbInputN
             // 
             this.tbInputN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbInputN.Location = new System.Drawing.Point(6, 309);
+            this.tbInputN.Location = new System.Drawing.Point(6, 303);
             this.tbInputN.Name = "tbInputN";
             this.tbInputN.Size = new System.Drawing.Size(160, 20);
             this.tbInputN.TabIndex = 2;
-            this.tbInputN.Text = "10";
+            this.tbInputN.Text = "6";
             // 
             // tbGameLogic
             // 
@@ -190,7 +194,7 @@ namespace GameTheory.UI
             this.gViewer.NavigationVisible = true;
             this.gViewer.PanButtonPressed = false;
             this.gViewer.SaveButtonVisible = true;
-            this.gViewer.Size = new System.Drawing.Size(692, 399);
+            this.gViewer.Size = new System.Drawing.Size(634, 407);
             this.gViewer.TabIndex = 3;
             this.gViewer.ZoomF = 1D;
             this.gViewer.ZoomFraction = 0.5D;
@@ -211,7 +215,7 @@ namespace GameTheory.UI
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.ReadOnly = true;
             this.dgvResults.RowHeadersVisible = false;
-            this.dgvResults.Size = new System.Drawing.Size(124, 399);
+            this.dgvResults.Size = new System.Drawing.Size(124, 407);
             this.dgvResults.TabIndex = 4;
             // 
             // clmnIterator
@@ -259,16 +263,29 @@ namespace GameTheory.UI
             this.infoToolStripMenuItem.Text = "Довідка";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
+            // cbAvoidRepaintingGraph
+            // 
+            this.cbAvoidRepaintingGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbAvoidRepaintingGraph.AutoSize = true;
+            this.cbAvoidRepaintingGraph.Location = new System.Drawing.Point(6, 358);
+            this.cbAvoidRepaintingGraph.Name = "cbAvoidRepaintingGraph";
+            this.cbAvoidRepaintingGraph.Size = new System.Drawing.Size(159, 17);
+            this.cbAvoidRepaintingGraph.TabIndex = 5;
+            this.cbAvoidRepaintingGraph.Text = "не перемальовувати граф";
+            this.cbAvoidRepaintingGraph.UseVisualStyleBackColor = true;
+            this.cbAvoidRepaintingGraph.CheckedChanged += new System.EventHandler(this.cbAvoidRepaintingGraph_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 438);
+            this.ClientSize = new System.Drawing.Size(970, 446);
             this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.gViewer);
             this.Controls.Add(this.pnlInputLogic);
             this.Controls.Add(this.msMainMenu);
             this.MainMenuStrip = this.msMainMenu;
+            this.MinimumSize = new System.Drawing.Size(721, 343);
             this.Name = "MainForm";
             this.Text = "Функція Шпрага-Гранді";
             this.msMainMenu.ResumeLayout(false);
@@ -302,6 +319,7 @@ namespace GameTheory.UI
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem infoToolStripMenuItem;
+        private CheckBox cbAvoidRepaintingGraph;
     }
 }
 

@@ -63,7 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenericGrundyGame.cs" />
+    <Compile Include="GenericGame\AntiRepeater.cs" />
+    <Compile Include="GenericGame\GenericGrundyGame.cs" />
     <Compile Include="Parser\Expressions\ExpressionBase.cs" />
     <Compile Include="Parser\Expressions\FullIteratorExpression.cs" />
     <Compile Include="Parser\Expressions\GameSumExpression.cs" />

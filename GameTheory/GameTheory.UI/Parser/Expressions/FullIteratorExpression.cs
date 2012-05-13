@@ -23,26 +23,32 @@ namespace GameTheory.UI.Parser.Expressions
         public override List<int> Evaluate(int n)
         {
             var result = new List<int>();
-            int arg1 = Body.HasVariable ? n : 0;
 
             int from = Range.From.Evaluate(n)[0],
                 to = Range.To.Evaluate(n)[0];
 
             for (int i = from; i <= to; i++)
             {
-                var help =
-                    Body.HasArgument
-                        ? EvaluateSimpleOperation(i, Body.OperationOnArgument, Body.Argument)
-                        : EvaluateNoOperation(i);
-                var main =
-                    Body.HasVariable
-                        ? EvaluateSimpleOperation(n, Body.OperationOnIterator, help)
-                        : EvaluateNoOperation(help);
-
-                result.Add(main);
+                var value = EvaluateInteratorBodyExpression(Body, n, i);
+                result.Add(value);
             }
 
             return result;
+        }
+
+        public static int EvaluateInteratorBodyExpression(IteratorBodyExpression body, int n, int i)
+        {
+            var firstPart =
+                    body.HasVariable
+                        ? EvaluateSimpleOperation(n, body.OperationOnIterator, i)
+                        : EvaluateNoOperation(i);
+
+            var secondPart =
+                body.HasArgument
+                    ? EvaluateSimpleOperation(firstPart, body.OperationOnArgument, body.Argument)
+                    : EvaluateNoOperation(firstPart);
+
+            return secondPart;
         }
 
         #region Overrides

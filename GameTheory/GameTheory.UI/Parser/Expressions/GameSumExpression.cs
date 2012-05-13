@@ -27,24 +27,45 @@ namespace GameTheory.UI.Parser.Expressions
         {
         }
 
-        public override List<int> Evaluate(int x)
+        public override List<int> Evaluate(int n)
         {
-
-            throw new NotImplementedException("look at full iterator expr");
             var result = new List<int>();
 
-            int from = Range.From.Evaluate(x)[0],
-                to = Range.To.Evaluate(x)[0];
+            int from = Range.From.Evaluate(n)[0],
+                to = Range.To.Evaluate(n)[0];
 
             for (int i = from; i <= to; i++)
             {
-                int sum = (from exp in BodyExpressions
-                           let arg1 = exp.HasVariable ? x : 0
-                           select EvaluateSimpleOperation(arg1, exp.OperationOnIterator, 
-                                    EvaluateSimpleOperation(i, exp.OperationOnArgument, exp.Argument)))
-                                  .Aggregate(_mergeNeutralElement, (current, res) => MergeTool(current, res));
-                
+                int sum = _mergeNeutralElement;
+                foreach (IteratorBodyExpression body in BodyExpressions)
+                {
+                    var value = FullIteratorExpression.EvaluateInteratorBodyExpression(body, n, i);
+                    sum = MergeTool(sum, value);
+                }
+
                 result.Add(sum);
+            }
+
+            return result;
+        }
+
+        public List<List<int>> EvaluateWithoutMerging(int n)
+        {
+            var result = new List<List<int>>();
+
+            int from = Range.From.Evaluate(n)[0],
+                to = Range.To.Evaluate(n)[0];
+
+            for (int i = from; i <= to; i++)
+            {
+                var gameSum = new List<int>();
+                foreach (IteratorBodyExpression body in BodyExpressions)
+                {
+                    var value = FullIteratorExpression.EvaluateInteratorBodyExpression(body, n, i);
+                    gameSum.Add(value);
+                }
+
+                result.Add(gameSum);
             }
 
             return result;

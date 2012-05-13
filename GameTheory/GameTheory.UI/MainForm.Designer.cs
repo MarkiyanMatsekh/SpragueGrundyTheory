@@ -99,6 +99,7 @@ namespace GameTheory.UI
             this.tbInputN.Name = "tbInputN";
             this.tbInputN.Size = new System.Drawing.Size(160, 20);
             this.tbInputN.TabIndex = 2;
+            this.tbInputN.Text = "10";
             // 
             // tbGameLogic
             // 

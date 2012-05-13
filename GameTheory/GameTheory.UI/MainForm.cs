@@ -32,7 +32,7 @@ namespace GameTheory.UI
                 var list = CalculateSpragueGrundyUpTo(n, solver);
 
                 UpdateGrid(list);
-                lblResult.Text = solver.SGValue(n).Str();
+                lblResult.Text = solver.SGValue(n) > 0 ? "Виграшна ситуація" : "Програшна ситуація";
                 gViewer.Graph = g;
             }
             catch (ArgumentException ex)
@@ -140,6 +140,17 @@ namespace GameTheory.UI
             var kayles = "i & n-i-1, i=0..n-1; i & n-i-2, i=0..n-2;";
             tbGameLogic.Text = kayles;
 
+        }
+
+        private void вийтиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form= new Help();
+            form.ShowDialog();
         }
     }
 }

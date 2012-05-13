@@ -22,14 +22,9 @@ namespace GameTheory.SpragueGrundy.Games
         protected override bool TryStopRecursion(int key, out uint value)
         {
             value = 0;
-            if (key == 0)
+            if (key <= 0)
             {
                 value = 0;
-                return true;
-            }
-            if (key == 1)
-            {
-                value = 1;
                 return true;
             }
 

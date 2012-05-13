@@ -33,6 +33,9 @@ namespace GameTheory.UI
         {
             this.msMainMenu = new System.Windows.Forms.MenuStrip();
             this.pnlInputLogic = new System.Windows.Forms.Panel();
+            this.btnKaylesGame = new System.Windows.Forms.Button();
+            this.btnDawsonsChessGame = new System.Windows.Forms.Button();
+            this.btnSubstractionGame = new System.Windows.Forms.Button();
             this.lblResult = new System.Windows.Forms.Label();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.lblInitialGameState = new System.Windows.Forms.Label();
@@ -43,15 +46,20 @@ namespace GameTheory.UI
             this.dgvResults = new System.Windows.Forms.DataGridView();
             this.clmnIterator = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnGrundyValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSubstractionGame = new System.Windows.Forms.Button();
-            this.btnDawsonsChessGame = new System.Windows.Forms.Button();
-            this.btnKaylesGame = new System.Windows.Forms.Button();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.msMainMenu.SuspendLayout();
             this.pnlInputLogic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.SuspendLayout();
             // 
             // msMainMenu
             // 
+            this.msMainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.msMainMenu.Location = new System.Drawing.Point(0, 0);
             this.msMainMenu.Name = "msMainMenu";
             this.msMainMenu.Size = new System.Drawing.Size(1028, 24);
@@ -77,15 +85,44 @@ namespace GameTheory.UI
             this.pnlInputLogic.Size = new System.Drawing.Size(176, 399);
             this.pnlInputLogic.TabIndex = 2;
             // 
+            // btnKaylesGame
+            // 
+            this.btnKaylesGame.Location = new System.Drawing.Point(6, 91);
+            this.btnKaylesGame.Name = "btnKaylesGame";
+            this.btnKaylesGame.Size = new System.Drawing.Size(160, 23);
+            this.btnKaylesGame.TabIndex = 8;
+            this.btnKaylesGame.Text = "гра \"Кеглі\"";
+            this.btnKaylesGame.UseVisualStyleBackColor = true;
+            this.btnKaylesGame.Click += new System.EventHandler(this.btnKaylesGame_Click);
+            // 
+            // btnDawsonsChessGame
+            // 
+            this.btnDawsonsChessGame.Location = new System.Drawing.Point(6, 120);
+            this.btnDawsonsChessGame.Name = "btnDawsonsChessGame";
+            this.btnDawsonsChessGame.Size = new System.Drawing.Size(160, 23);
+            this.btnDawsonsChessGame.TabIndex = 7;
+            this.btnDawsonsChessGame.Text = "гра \"Шахи Доусона\"";
+            this.btnDawsonsChessGame.UseVisualStyleBackColor = true;
+            this.btnDawsonsChessGame.Click += new System.EventHandler(this.btnDawsonsChessGame_Click);
+            // 
+            // btnSubstractionGame
+            // 
+            this.btnSubstractionGame.Location = new System.Drawing.Point(6, 62);
+            this.btnSubstractionGame.Name = "btnSubstractionGame";
+            this.btnSubstractionGame.Size = new System.Drawing.Size(160, 23);
+            this.btnSubstractionGame.TabIndex = 6;
+            this.btnSubstractionGame.Text = "гра \"Віднімашки\"";
+            this.btnSubstractionGame.UseVisualStyleBackColor = true;
+            this.btnSubstractionGame.Click += new System.EventHandler(this.btnSubstractionGame_Click);
+            // 
             // lblResult
             // 
             this.lblResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblResult.AutoSize = true;
             this.lblResult.Location = new System.Drawing.Point(3, 374);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(67, 13);
+            this.lblResult.Size = new System.Drawing.Size(0, 13);
             this.lblResult.TabIndex = 5;
-            this.lblResult.Text = "результат...";
             // 
             // btnCalculate
             // 
@@ -94,7 +131,7 @@ namespace GameTheory.UI
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(160, 23);
             this.btnCalculate.TabIndex = 4;
-            this.btnCalculate.Text = "Порахувати";
+            this.btnCalculate.Text = "Обчислити";
             this.btnCalculate.UseVisualStyleBackColor = true;
             this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
@@ -192,35 +229,35 @@ namespace GameTheory.UI
             this.clmnGrundyValue.Name = "clmnGrundyValue";
             this.clmnGrundyValue.ReadOnly = true;
             // 
-            // btnSubstractionGame
+            // fileToolStripMenuItem
             // 
-            this.btnSubstractionGame.Location = new System.Drawing.Point(6, 62);
-            this.btnSubstractionGame.Name = "btnSubstractionGame";
-            this.btnSubstractionGame.Size = new System.Drawing.Size(160, 23);
-            this.btnSubstractionGame.TabIndex = 6;
-            this.btnSubstractionGame.Text = "гра \"Віднімашки\"";
-            this.btnSubstractionGame.UseVisualStyleBackColor = true;
-            this.btnSubstractionGame.Click += new System.EventHandler(this.btnSubstractionGame_Click);
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.fileToolStripMenuItem.Text = "Файл";
             // 
-            // btnDawsonsChessGame
+            // exitToolStripMenuItem
             // 
-            this.btnDawsonsChessGame.Location = new System.Drawing.Point(6, 120);
-            this.btnDawsonsChessGame.Name = "btnDawsonsChessGame";
-            this.btnDawsonsChessGame.Size = new System.Drawing.Size(160, 23);
-            this.btnDawsonsChessGame.TabIndex = 7;
-            this.btnDawsonsChessGame.Text = "гра \"Шахи Доусона\"";
-            this.btnDawsonsChessGame.UseVisualStyleBackColor = true;
-            this.btnDawsonsChessGame.Click += new System.EventHandler(this.btnDawsonsChessGame_Click);
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Вийти";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.вийтиToolStripMenuItem_Click);
             // 
-            // btnKaylesGame
+            // helpToolStripMenuItem
             // 
-            this.btnKaylesGame.Location = new System.Drawing.Point(6, 91);
-            this.btnKaylesGame.Name = "btnKaylesGame";
-            this.btnKaylesGame.Size = new System.Drawing.Size(160, 23);
-            this.btnKaylesGame.TabIndex = 8;
-            this.btnKaylesGame.Text = "гра \"Кеглі\"";
-            this.btnKaylesGame.UseVisualStyleBackColor = true;
-            this.btnKaylesGame.Click += new System.EventHandler(this.btnKaylesGame_Click);
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.infoToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.helpToolStripMenuItem.Text = "Допомога";
+            // 
+            // infoToolStripMenuItem
+            // 
+            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.infoToolStripMenuItem.Text = "Довідка";
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -234,6 +271,8 @@ namespace GameTheory.UI
             this.MainMenuStrip = this.msMainMenu;
             this.Name = "MainForm";
             this.Text = "Функція Шпрага-Гранді";
+            this.msMainMenu.ResumeLayout(false);
+            this.msMainMenu.PerformLayout();
             this.pnlInputLogic.ResumeLayout(false);
             this.pnlInputLogic.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
@@ -259,6 +298,10 @@ namespace GameTheory.UI
         private Button btnKaylesGame;
         private Button btnDawsonsChessGame;
         private Button btnSubstractionGame;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem infoToolStripMenuItem;
     }
 }
 

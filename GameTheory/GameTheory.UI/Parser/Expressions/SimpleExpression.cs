@@ -38,7 +38,6 @@ namespace GameTheory.UI.Parser.Expressions
             return new SimpleExpression(false, false, Operation.None, 0);
         }
 
-
         public override List<int> Evaluate(int n)
         {
             int arg1 = HasVariable ? n : 0;
@@ -49,7 +48,7 @@ namespace GameTheory.UI.Parser.Expressions
 
         public override string ToString()
         {
-            return string.Format("{0}{1}{2}", HasVariable ? "x" : string.Empty,
+            return string.Format("{0}{1}{2}", HasVariable ? GameLogicParser.VariableSymbol.ToString() : string.Empty,
                 Operation.Show(),
                 Argument);
         }

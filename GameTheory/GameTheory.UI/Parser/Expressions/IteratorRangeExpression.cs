@@ -20,7 +20,7 @@ namespace GameTheory.UI.Parser.Expressions
 
         public override string ToString()
         {
-            return string.Format("{0}..{1}", From, To);
+            return string.Format("i={0}..{1}", From, To);
         }
 
         public bool Equals(IteratorRangeExpression other)

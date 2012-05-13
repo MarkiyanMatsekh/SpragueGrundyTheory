@@ -14,15 +14,15 @@ namespace GameTheory.UI.Parser.Expressions
 
         private readonly int _mergeNeutralElement;
 
-        public GameSumExpression(List<IteratorBodyExpression> expressions, SimpleExpression iterateFrom, SimpleExpression iterateTo,
+        public GameSumExpression(IEnumerable<IteratorBodyExpression> expressions, SimpleExpression iterateFrom, SimpleExpression iterateTo,
             Func<int, int, int> mergeTool, int mergeNeutralElement)
         {
-            BodyExpressions = expressions.AsReadOnly();
+            BodyExpressions = expressions.ToList().AsReadOnly();
             Range = new IteratorRangeExpression(iterateFrom, iterateTo);
             MergeTool = mergeTool;
             _mergeNeutralElement = mergeNeutralElement;
         }
-        public GameSumExpression(List<IteratorBodyExpression> expressions, SimpleExpression iterateFrom, SimpleExpression iterateTo)
+        public GameSumExpression(IEnumerable<IteratorBodyExpression> expressions, SimpleExpression iterateFrom, SimpleExpression iterateTo)
             : this(expressions, iterateFrom, iterateTo, (a,b) => a ^ b, 0)
         {
         }
@@ -54,9 +54,10 @@ namespace GameTheory.UI.Parser.Expressions
         {
             var sb = new StringBuilder();
             foreach (var expression in BodyExpressions)
-                sb.Append(expression.ToString()).Append("*");
+                sb.Append(GameLogicParser.GameDelimiterSymbol).Append(expression.ToString());
+            var expressions = sb.ToString().Substring(1);
 
-            return string.Format("{0},{1}", sb, Range);
+            return string.Format("{0},{1}", expressions, Range);
         }
 
         public bool Equals(GameSumExpression other)

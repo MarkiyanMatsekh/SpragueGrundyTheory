@@ -15,6 +15,7 @@ namespace GameTheory.UI.Parser
         public const string IteratorRangeSymbol = "..";
 
         public const char VariableSymbol = 'n';
+        public const char GameDelimiterSymbol = '&';
 
         public static List<EvaluatableExpression> ParseMultipleTransitions(string text)
         {
@@ -114,11 +115,20 @@ namespace GameTheory.UI.Parser
                 opOnIterator = Operation.None;
             }
 
-            var subeExpression = ParseSimpleExpression(expression, IteratorSymbol);
+            var subExpression = ParseSimpleExpression(expression, IteratorSymbol);
 
-            return subeExpression.HasArgument
-                ? new IteratorBodyExpression(hasVariable, opOnIterator, subeExpression.Operation, subeExpression.Argument)
-                : new IteratorBodyExpression(hasVariable, opOnIterator);
+            if (hasVariable)
+            {
+                return subExpression.HasArgument
+                   ? new IteratorBodyExpression(opOnIterator, subExpression.Operation, subExpression.Argument)
+                   : new IteratorBodyExpression(opOnIterator);
+            }
+            else
+            {
+                return subExpression.HasArgument
+                           ? new IteratorBodyExpression(subExpression.Operation, subExpression.Argument)
+                           : IteratorBodyExpression.IteratorOnly();
+            }
         }
 
         public static SimpleExpression ParseSimpleExpression(string expression, char variableSymbol = VariableSymbol)
@@ -158,6 +168,24 @@ namespace GameTheory.UI.Parser
 
             return hasVariable ? new SimpleExpression(op, arg) : new SimpleExpression(arg);
 
+        }
+
+        public static GameSumExpression ParseGameSumExpression(string expression)
+        {
+            var parts = expression.Split(PartsSeparator);
+
+            var bodiesPart = parts[0];
+            var rangePart = parts[1];
+
+            var itBodies = new List<IteratorBodyExpression>();
+            var bodies = bodiesPart.Split(GameDelimiterSymbol);
+            foreach (var body in bodies)
+            {
+               itBodies.Add( ParseIteratorBodyExpression(body));
+            }
+            var range = ParseIteratorRangeExpression(rangePart);
+
+            return new GameSumExpression(itBodies, range.From, range.To);
         }
     }
 }

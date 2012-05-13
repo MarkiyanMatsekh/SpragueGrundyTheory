@@ -20,14 +20,24 @@ namespace GameTheory.UI.Parser.Expressions
             Argument = argument;
         }
 
-        public IteratorBodyExpression(bool hasVariable, Operation operationOnIterator, Operation operationOnArgument, int argument)
-            : this(hasVariable, operationOnIterator, true, operationOnArgument, argument)
+        public IteratorBodyExpression(Operation operationOnIterator, Operation operationOnArgument, int argument)
+            : this(true, operationOnIterator, true, operationOnArgument, argument)
         {
         }
 
-        public IteratorBodyExpression(bool hasVariable, Operation operationOnIterator)
-            : this(hasVariable, operationOnIterator, false, Operation.None, 0)
+        public IteratorBodyExpression(Operation operationOnIterator)
+            : this(true, operationOnIterator, false, Operation.None, 0)
         {
+        }
+
+        public IteratorBodyExpression(Operation operationOnArgument, int argument)
+            : this(false, Operation.None, true, operationOnArgument, argument)
+        {
+        }
+
+        public static IteratorBodyExpression IteratorOnly()
+        {
+            return new IteratorBodyExpression(false, Operation.None, false, Operation.None, 0);
         }
 
         #region Overrides
@@ -35,7 +45,7 @@ namespace GameTheory.UI.Parser.Expressions
         public override string ToString()
         {
             return string.Format("{0}{1}i{2}{3}",
-                                 HasVariable ? "x" : string.Empty,
+                                 HasVariable ? GameLogicParser.VariableSymbol.ToString() : string.Empty,
                                  OperationOnIterator.Show(),
                                  OperationOnArgument.Show(),
                                  HasArgument ? Argument.ToString() : string.Empty);
@@ -45,11 +55,11 @@ namespace GameTheory.UI.Parser.Expressions
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return other.HasVariable.Equals(HasVariable) && 
-                other.HasArgument.Equals(HasArgument) && 
-                Equals(other.OperationOnIterator, OperationOnIterator) && 
-                (!HasArgument ||  // if there's no argument equalityt is determined without the rest of params
-                Equals(other.OperationOnArgument, OperationOnArgument) && 
+            return other.HasVariable.Equals(HasVariable) &&
+                other.HasArgument.Equals(HasArgument) &&
+                Equals(other.OperationOnIterator, OperationOnIterator) &&
+                (!HasArgument ||  // if there's no argument, equality is determined without the rest of params
+                Equals(other.OperationOnArgument, OperationOnArgument) &&
                  other.Argument == Argument);
         }
 
@@ -57,8 +67,8 @@ namespace GameTheory.UI.Parser.Expressions
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (IteratorBodyExpression)) return false;
-            return Equals((IteratorBodyExpression) obj);
+            if (obj.GetType() != typeof(IteratorBodyExpression)) return false;
+            return Equals((IteratorBodyExpression)obj);
         }
 
         public override int GetHashCode()
@@ -66,10 +76,10 @@ namespace GameTheory.UI.Parser.Expressions
             unchecked
             {
                 int result = HasVariable.GetHashCode();
-                result = (result*397) ^ HasArgument.GetHashCode();
-                result = (result*397) ^ OperationOnIterator.GetHashCode();
-                result = (result*397) ^ OperationOnArgument.GetHashCode();
-                result = (result*397) ^ Argument;
+                result = (result * 397) ^ HasArgument.GetHashCode();
+                result = (result * 397) ^ OperationOnIterator.GetHashCode();
+                result = (result * 397) ^ OperationOnArgument.GetHashCode();
+                result = (result * 397) ^ Argument;
                 return result;
             }
         }

@@ -41,7 +41,7 @@ namespace GameTheory.UI.Parser.Expressions
 
         public override string ToString()
         {
-            return string.Format("{0},{1}", Body, Range);
+            return string.Format("{0}{1}{2}", Body, GameLogicParser.PartsSeparator, Range);
         }
 
         public bool Equals(FullIteratorExpression other)
